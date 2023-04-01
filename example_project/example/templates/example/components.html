@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load dbt_govuk_django_core %}
+
+{% block content %}
+    <hr />
+    {{ back_link }}
+    <hr />
+    {{ button }}
+    <hr />
+    {{ accordion }}
+    {% gds_accordion "accordion-1" %}
+        {% gds_accordion_item "Heading 1" "Summary 1" %}
+            <strong>Content1</strong>
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item "Heading 2" "Summary 2" %}
+            <strong>Content2</strong>
+        {% end_gds_accordion_item %}
+    {% end_gds_accordion %}
+    <hr />
+    {{ breadcrumbs }}
+    <hr />
+    {{ character_count }}
+    <hr />
+    {{ pagination }}
+    <hr />
+{% endblock content %}

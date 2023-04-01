@@ -3,7 +3,6 @@
 {% load dbt_govuk_django_core %}
 
 {% block content %}
-
     <table class="govuk-table">
         <caption class="govuk-table__caption govuk-table__caption--m">Users</caption>
         <thead class="govuk-table__head">
@@ -13,7 +12,6 @@
             </tr>
         </thead>
         <tbody class="govuk-table__body">
-
             {% for user in object_list %}
                 <tr class="govuk-table__row">
                     <th scope="row" class="govuk-table__header">{{ user.first_name }}</th>
@@ -27,6 +25,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {% gds_pagination page_obj page_obj_name="users" %}
+    {% gds_pagination page_obj %}
 {% endblock content %}
