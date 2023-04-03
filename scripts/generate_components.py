@@ -9,9 +9,9 @@ from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 @dataclass(kw_only=True)
 class GovUK{component_class_name}(GovUKComponent):
-    """GovUK
+    """GovUK {component_name}
 
-    See: https://design-system.service.gov.uk/components/{component_hyphenated}/
+    See: {gds_url}
     """
 
     # Dataclass fields go here...
@@ -51,14 +51,21 @@ for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
         print(f"Skipping {filename} as it already exists")
         continue
 
+    component_name = " ".join(
+        [word.capitalize() for word in component_hyphenated.split("-")]
+    )
     component_class_name = "".join(
         [word.capitalize() for word in component_hyphenated.split("-")]
     )
 
     print(f"Generating {component_class_name} {component_hyphenated} {component_underscored}")
 
+    gds_url = f"https://design-system.service.gov.uk/components/{component_hyphenated}/"
+
     with open(filename, "w") as f:
         f.write(new_component_python.format(
+            component_name=component_name,
             component_class_name=component_class_name,
             component_hyphenated=component_hyphenated,
+            gds_url=gds_url,
         ))
