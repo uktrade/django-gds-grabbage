@@ -14,6 +14,11 @@ class CharacterCountHint(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKCharacterCount(GovUKComponent):
+    """GovUK Character Count
+
+    See: https://design-system.service.gov.uk/components/character-count/
+    """
+
     name: str
     id: str
     maxlength: int

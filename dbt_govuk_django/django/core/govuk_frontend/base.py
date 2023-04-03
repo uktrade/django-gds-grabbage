@@ -55,15 +55,15 @@ class Fieldset(TypedDict):
 class HintText(TypedDict):
     text: str
 
-class ErrorMesage(TypedDict):
-    text: str
-
 @dataclass(kw_only=True)
 class GovUKFieldComponent(GovUKComponent):
+    from dbt_govuk_django.django.core.govuk_frontend.error_message import \
+        GovUKErrorMessage
+
     name: Optional[str] = None
     fieldset: Fieldset
     hint: HintText
-    error_message: ErrorMesage
+    error_message: GovUKErrorMessage
 
     def get_data(self) -> Dict[str, Any]:
         data = super().get_data()
@@ -71,5 +71,6 @@ class GovUKFieldComponent(GovUKComponent):
             name=self.name,
             fieldset=self.fieldset,
             hint=self.hint,
+            errorMessage=self.error_message,
         )
         return data

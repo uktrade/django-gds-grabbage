@@ -6,6 +6,11 @@ from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 @dataclass(kw_only=True)
 class GovUKBackLink(GovUKComponent):
+    """GovUK Back Link
+
+    See: https://design-system.service.gov.uk/components/back-link/
+    """
+
     text: str
     href: str
 

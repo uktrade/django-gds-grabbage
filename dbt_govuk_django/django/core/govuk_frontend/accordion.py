@@ -17,6 +17,11 @@ class AccordionItem(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKAccordion(GovUKComponent):
+    """GovUK Accordion
+
+    See: https://design-system.service.gov.uk/components/accordion/
+    """
+
     id: str
     items: List[AccordionItem]
 

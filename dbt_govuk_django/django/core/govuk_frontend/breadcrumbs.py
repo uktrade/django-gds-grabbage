@@ -11,6 +11,11 @@ class BreadcrumbItem(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKBreadcrumbs(GovUKComponent):
+    """GovUK Breadcrumbs
+
+    See: https://design-system.service.gov.uk/components/breadcrumbs/
+    """
+
     items: List[BreadcrumbItem]
 
     jinja2_template = "govuk_frontend_jinja/components/breadcrumbs/macro.html"

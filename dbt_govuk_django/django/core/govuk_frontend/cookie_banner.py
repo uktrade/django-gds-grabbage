@@ -20,6 +20,11 @@ class CookieBannerMessageItem(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKCookieBanner(GovUKComponent):
+    """GovUK Cookie Banner
+
+    See: https://design-system.service.gov.uk/components/cookie-banner/
+    """
+
     aria_label: str
     messages: List[CookieBannerMessageItem]
 

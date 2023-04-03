@@ -16,6 +16,8 @@ from dbt_govuk_django.django.core.govuk_frontend.cookie_banner import \
     GovUKCookieBanner
 from dbt_govuk_django.django.core.govuk_frontend.date_input import \
     GovUKDateInput
+from dbt_govuk_django.django.core.govuk_frontend.error_message import \
+    GovUKErrorMessage
 from dbt_govuk_django.django.core.govuk_frontend.pagination import \
     GovUKPagination
 
@@ -208,5 +210,8 @@ def components_view(request):
                 "value": "2076",
             }
         ]
+    )
+    context["error_message"] = GovUKErrorMessage(
+        text="Error message"
     )
     return render(request, "example/components.html", context)

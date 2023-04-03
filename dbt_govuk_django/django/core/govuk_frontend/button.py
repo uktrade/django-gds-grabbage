@@ -6,6 +6,11 @@ from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 @dataclass(kw_only=True)
 class GovUKButton(GovUKComponent):
+    """GovUK Button
+
+    See: https://design-system.service.gov.uk/components/button/
+    """
+
     text: str
     classes: str = ""
     disabled: bool = False

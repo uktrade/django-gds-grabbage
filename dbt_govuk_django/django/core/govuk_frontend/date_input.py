@@ -12,6 +12,11 @@ class DateInputItem(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKDateInput(GovUKFieldComponent):
+    """GovUK Date Input
+
+    See: https://design-system.service.gov.uk/components/date-input/
+    """
+
     id: str
     name_prefix: str
     items: List[DateInputItem]
