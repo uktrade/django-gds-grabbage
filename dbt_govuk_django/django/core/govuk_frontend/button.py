@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
-from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
+from dbt_govuk_django.django.core.govuk_frontend.base import (Attributes,
+                                                              GovUKComponent)
 
 
 @dataclass(kw_only=True)
@@ -11,18 +12,16 @@ class GovUKButton(GovUKComponent):
     See: https://design-system.service.gov.uk/components/button/
     """
 
-    text: str
-    classes: str = ""
+    element: Optional[str] = None
+    text: Optional[str] = None
+    html: Optional[str] = None
+    name: Optional[str] = None
+    type: Optional[str] = None
+    value: Optional[str] = None
     disabled: bool = False
+    href: Optional[str] = None
     preventDoubleClick: bool = True
+    isStartButton: bool = False
 
-    jinja2_template = "govuk_frontend_jinja/components/button/macro.html"
-    macro_name = "govukButton"
-
-    def get_data(self) -> Dict[str, Any]:
-        return {
-            "text": self.text,
-            "classes": self.classes,
-            "disabled": self.disabled,
-            "preventDoubleClick": self.preventDoubleClick,
-        }
+    _jinja2_template = "govuk_frontend_jinja/components/button/macro.html"
+    _macro_name = "govukButton"

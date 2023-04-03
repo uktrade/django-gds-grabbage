@@ -23,16 +23,7 @@ class GovUKCheckboxes(GovUKFieldComponent):
     See: https://design-system.service.gov.uk/components/checkboxes/
     """
 
-    fieldset: Fieldset
     items: List[CheckboxDivider | CheckboxItem]
 
-    jinja2_template = "govuk_frontend_jinja/components/checkboxes/macro.html"
-    macro_name = "govukCheckboxes"
-
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            fieldset=self.fieldset,
-            items=self.items,
-        )
-        return data
+    _jinja2_template = "govuk_frontend_jinja/components/checkboxes/macro.html"
+    _macro_name = "govukCheckboxes"

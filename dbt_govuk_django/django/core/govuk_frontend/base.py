@@ -7,18 +7,22 @@ from jinja2 import (ChoiceLoader, Environment, PackageLoader, PrefixLoader,
                     select_autoescape)
 
 
-class GovUKComponent(RenderableMixin):
-    jinja2_template: str
-    macro_name: str
+class Attributes(TypedDict):
+    pass
 
-    def get_data(self) -> Dict[str, Any]:
-        return {}
+
+class GovUKComponent(RenderableMixin):
+    classes: Optional[str] = None
+    attributes: Optional[Attributes] = None
+
+    _jinja2_template: str
+    _macro_name: str
 
     def build_jinja_template(self):
         return "".join(
             [
-                "{%- from '", self.jinja2_template, "' import ", self.macro_name, " -%}",
-                "{{ ", self.macro_name, "(data) }}",
+                "{%- from '", self._jinja2_template, "' import ", self._macro_name, " -%}",
+                "{{ ", self._macro_name, "(data) }}",
             ]
         )
 
@@ -37,7 +41,8 @@ class GovUKComponent(RenderableMixin):
             autoescape=select_autoescape(),
         )
         template = env.from_string(self.build_jinja_template())
-        return mark_safe(template.render(data=self.get_data()))
+        return mark_safe(template.render(data=self.__dict__))
+        # return mark_safe(template.render(data=self.get_data()))
 
     __str__ = render
     __html__ = render
@@ -63,14 +68,5 @@ class GovUKFieldComponent(GovUKComponent):
     name: Optional[str] = None
     fieldset: Fieldset
     hint: HintText
-    error_message: GovUKErrorMessage
+    errorMessage: GovUKErrorMessage
 
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            name=self.name,
-            fieldset=self.fieldset,
-            hint=self.hint,
-            errorMessage=self.error_message,
-        )
-        return data

@@ -18,17 +18,8 @@ class GovUKDateInput(GovUKFieldComponent):
     """
 
     id: str
-    name_prefix: str
+    namePrefix: str
     items: List[DateInputItem]
 
-    jinja2_template = "govuk_frontend_jinja/components/date-input/macro.html"
-    macro_name = "govukDateInput"
-
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            id=self.id,
-            namePrefix=self.name_prefix,
-            items=self.items,
-        )
-        return data
+    _jinja2_template = "govuk_frontend_jinja/components/date-input/macro.html"
+    _macro_name = "govukDateInput"

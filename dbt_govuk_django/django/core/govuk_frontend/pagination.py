@@ -19,12 +19,17 @@ class PaginationEllipsis(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKPagination(GovUKComponent):
+    """GovUK Pagination
+
+    See: https://design-system.service.gov.uk/components/pagination/
+    """
+
     previous: Optional[PaginationPrevNextLink] = None
     next: Optional[PaginationPrevNextLink] = None
     items: List[PaginationItem | PaginationEllipsis]
 
-    jinja2_template = "govuk_frontend_jinja/components/pagination/macro.html"
-    macro_name = "govukPagination"
+    _jinja2_template = "govuk_frontend_jinja/components/pagination/macro.html"
+    _macro_name = "govukPagination"
 
     def get_data(self) -> Dict[str, Any]:
         data = super().get_data()

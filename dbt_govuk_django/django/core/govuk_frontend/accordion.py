@@ -1,19 +1,26 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, TypedDict
 
-from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
+from dbt_govuk_django.django.core.govuk_frontend.base import (Attributes,
+                                                              GovUKComponent)
 
 
-class AccordionItemText(TypedDict):
+@dataclass(kw_only=True)
+class AccordionItemText:
     text: str
 
-class AccordionItemHtml(TypedDict):
+
+@dataclass(kw_only=True)
+class AccordionItemHtml:
     html: str
 
-class AccordionItem(TypedDict):
+
+@dataclass(kw_only=True)
+class AccordionItem:
     heading: AccordionItemText
     summary: Optional[AccordionItemText]
     content: AccordionItemHtml
+
 
 @dataclass(kw_only=True)
 class GovUKAccordion(GovUKComponent):
@@ -23,15 +30,8 @@ class GovUKAccordion(GovUKComponent):
     """
 
     id: str
+    headingLevel: int = 2
     items: List[AccordionItem]
 
-    jinja2_template = "govuk_frontend_jinja/components/accordion/macro.html"
-    macro_name = "govukAccordion"
-
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            id=self.id,
-            items=self.items,
-        )
-        return data
+    _jinja2_template = "govuk_frontend_jinja/components/accordion/macro.html"
+    _macro_name = "govukAccordion"

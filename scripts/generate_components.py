@@ -17,8 +17,8 @@ class GovUK{component_class_name}(GovUKComponent):
     # Dataclass fields go here...
     ...
 
-    jinja2_template = "govuk_frontend_jinja/components/{component_hyphenated}/macro.html"
-    macro_name = "govuk{component_class_name}"
+    _jinja2_template = "govuk_frontend_jinja/components/{component_hyphenated}/macro.html"
+    _macro_name = "govuk{component_class_name}"
 
     def get_data(self) -> Dict[str, Any]:
         data = super().get_data()

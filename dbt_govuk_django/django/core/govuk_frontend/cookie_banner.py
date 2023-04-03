@@ -25,16 +25,8 @@ class GovUKCookieBanner(GovUKComponent):
     See: https://design-system.service.gov.uk/components/cookie-banner/
     """
 
-    aria_label: str
+    ariaLabel: str
     messages: List[CookieBannerMessageItem]
 
-    jinja2_template = "govuk_frontend_jinja/components/cookie-banner/macro.html"
-    macro_name = "govukCookieBanner"
-
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            ariaLabel=self.aria_label,
-            messages=self.messages,
-        )
-        return data
+    _jinja2_template = "govuk_frontend_jinja/components/cookie-banner/macro.html"
+    _macro_name = "govukCookieBanner"

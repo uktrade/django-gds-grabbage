@@ -110,7 +110,7 @@ def components_view(request):
         fieldset={
             "legend": {"text": "Legend text"},
         },
-        error_message={"text": "Error message"},
+        errorMessage={"text": "Error message"},
         hint={"text": "Hint text"},
         items=[
             {
@@ -135,7 +135,7 @@ def components_view(request):
         ]
     )
     context["cookie_banner"] = GovUKCookieBanner(
-        aria_label= "Cookies on [name of service]",
+        ariaLabel= "Cookies on [name of service]",
         messages=[
             {
                 "headingText": "Cookies on [name of service]",
@@ -179,7 +179,7 @@ def components_view(request):
     )
     context["date_input"] = GovUKDateInput(
         id="passport-issued",
-        name_prefix="passport-issued",
+        namePrefix="passport-issued",
         fieldset={
             "legend": {
                 "text": "When was your passport issued?",
@@ -190,7 +190,7 @@ def components_view(request):
         hint={
             "text": "For example, 27 3 2007",
         },
-        error_message={
+        errorMessage={
             "text": "The date your passport was issued must be in the past",
         },
         items=[

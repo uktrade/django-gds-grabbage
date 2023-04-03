@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
-from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
+from dbt_govuk_django.django.core.govuk_frontend.base import (Attributes,
+                                                              GovUKComponent)
 
 
 @dataclass(kw_only=True)
@@ -11,16 +12,9 @@ class GovUKBackLink(GovUKComponent):
     See: https://design-system.service.gov.uk/components/back-link/
     """
 
-    text: str
+    text: Optional[str] = None
+    html: Optional[str] = None
     href: str
 
-    jinja2_template = "govuk_frontend_jinja/components/back-link/macro.html"
-    macro_name = "govukBackLink"
-
-    def get_data(self) -> Dict[str, Any]:
-        data = super().get_data()
-        data.update(
-            text=self.text,
-            href=self.href,
-        )
-        return data
+    _jinja2_template = "govuk_frontend_jinja/components/back-link/macro.html"
+    _macro_name = "govukBackLink"

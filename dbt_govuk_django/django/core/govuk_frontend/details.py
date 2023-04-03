@@ -11,8 +11,8 @@ class GovUKDetails(GovUKComponent):
     See: https://design-system.service.gov.uk/components/details/
     """
 
-    jinja2_template = "govuk_frontend_jinja/components/details/macro.html"
-    macro_name = "govukDetails"
+    _jinja2_template = "govuk_frontend_jinja/components/details/macro.html"
+    _macro_name = "govukDetails"
 
     def get_data(self) -> Dict[str, Any]:
         data = super().get_data()
