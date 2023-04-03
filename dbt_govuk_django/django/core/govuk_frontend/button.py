@@ -4,7 +4,7 @@ from typing import Any, Dict
 from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GovUKButton(GovUKComponent):
     text: str
     classes: str = ""

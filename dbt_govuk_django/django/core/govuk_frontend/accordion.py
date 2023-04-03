@@ -15,7 +15,7 @@ class AccordionItem(TypedDict):
     summary: Optional[AccordionItemText]
     content: AccordionItemHtml
 
-@dataclass
+@dataclass(kw_only=True)
 class GovUKAccordion(GovUKComponent):
     id: str
     items: List[AccordionItem]
@@ -24,7 +24,9 @@ class GovUKAccordion(GovUKComponent):
     macro_name = "govukAccordion"
 
     def get_data(self) -> Dict[str, Any]:
-        return {
-            "id": self.id,
-            "items": self.items,
-        }
+        data = super().get_data()
+        data.update(
+            id=self.id,
+            items=self.items,
+        )
+        return data

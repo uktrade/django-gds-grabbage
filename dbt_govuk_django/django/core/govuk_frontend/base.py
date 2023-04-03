@@ -1,4 +1,5 @@
-from typing import Any, Dict
+from dataclasses import dataclass
+from typing import Any, Dict, Optional, TypedDict
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
@@ -40,3 +41,35 @@ class GovUKComponent(RenderableMixin):
 
     __str__ = render
     __html__ = render
+
+
+class FieldsetLegend(TypedDict):
+    text: str
+    isPageHeading: bool
+    classes: str
+
+class Fieldset(TypedDict):
+    legend: FieldsetLegend
+
+
+class HintText(TypedDict):
+    text: str
+
+class ErrorMesage(TypedDict):
+    text: str
+
+@dataclass(kw_only=True)
+class GovUKFieldComponent(GovUKComponent):
+    name: Optional[str] = None
+    fieldset: Fieldset
+    hint: HintText
+    error_message: ErrorMesage
+
+    def get_data(self) -> Dict[str, Any]:
+        data = super().get_data()
+        data.update(
+            name=self.name,
+            fieldset=self.fieldset,
+            hint=self.hint,
+        )
+        return data

@@ -17,18 +17,20 @@ class PaginationItem(TypedDict):
 class PaginationEllipsis(TypedDict):
     ellipsis: bool
 
-@dataclass
+@dataclass(kw_only=True)
 class GovUKPagination(GovUKComponent):
-    previous: Optional[PaginationPrevNextLink]
-    next: Optional[PaginationPrevNextLink]
+    previous: Optional[PaginationPrevNextLink] = None
+    next: Optional[PaginationPrevNextLink] = None
     items: List[PaginationItem | PaginationEllipsis]
 
     jinja2_template = "govuk_frontend_jinja/components/pagination/macro.html"
     macro_name = "govukPagination"
 
     def get_data(self) -> Dict[str, Any]:
-        return {
-            "previous": self.previous,
-            "next": self.next,
-            "items": self.items,
-        }
+        data = super().get_data()
+        data.update(
+            previous=self.previous,
+            next=self.next,
+            items=self.items,
+        )
+        return data

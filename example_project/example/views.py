@@ -10,6 +10,12 @@ from dbt_govuk_django.django.core.govuk_frontend.breadcrumbs import \
 from dbt_govuk_django.django.core.govuk_frontend.button import GovUKButton
 from dbt_govuk_django.django.core.govuk_frontend.character_count import \
     GovUKCharacterCount
+from dbt_govuk_django.django.core.govuk_frontend.checkboxes import \
+    GovUKCheckboxes
+from dbt_govuk_django.django.core.govuk_frontend.cookie_banner import \
+    GovUKCookieBanner
+from dbt_govuk_django.django.core.govuk_frontend.date_input import \
+    GovUKDateInput
 from dbt_govuk_django.django.core.govuk_frontend.pagination import \
     GovUKPagination
 
@@ -96,5 +102,111 @@ def components_view(request):
                 "href": "/",
             },
         ],
+    )
+    context["checkboxes"] = GovUKCheckboxes(
+        name="checkboxes_1",
+        fieldset={
+            "legend": {"text": "Legend text"},
+        },
+        error_message={"text": "Error message"},
+        hint={"text": "Hint text"},
+        items=[
+            {
+                "value": "1",
+                "text": "Option 1",
+            },
+            {
+                "value": "2",
+                "text": "Option 2",
+            },
+            {
+                "divider": "or",
+            },
+            {
+                "value": "3",
+                "text": "Option 3",
+                "hint": {
+                    "text": "Hint text",
+                },
+                "behaviour": "exclusive",
+            },
+        ]
+    )
+    context["cookie_banner"] = GovUKCookieBanner(
+        aria_label= "Cookies on [name of service]",
+        messages=[
+            {
+                "headingText": "Cookies on [name of service]",
+                "html": "<p class='govuk-body'>Some text</p>",
+                "actions": [
+                    {
+                        "text": "Accept analytics cookies",
+                        "type": "button",
+                    },
+                    {
+                        "text": "Reject analytics cookies",
+                        "type": "button",
+                    },
+                    {
+                        "text": "View cookies",
+                        "href": "#",
+                    }
+                ]
+            },
+            {
+                "html": "<p class='govuk-body'>Some text</p>",
+                "role": "alert",
+                "hidden": True,
+                "actions": [
+                    {
+                        "text": "Hide cookie message"
+                    }
+                ],
+            },
+            {
+                "html": "<p class='govuk-body'>Some text</p>",
+                "role": "alert",
+                "hidden": True,
+                "actions": [
+                    {
+                        "text": "Hide cookie message"
+                    }
+                ]
+            }
+        ]
+    )
+    context["date_input"] = GovUKDateInput(
+        id="passport-issued",
+        name_prefix="passport-issued",
+        fieldset={
+            "legend": {
+                "text": "When was your passport issued?",
+                "isPageHeading": True,
+                "classes": "govuk-fieldset__legend--l",
+            }
+        },
+        hint={
+            "text": "For example, 27 3 2007",
+        },
+        error_message={
+            "text": "The date your passport was issued must be in the past",
+        },
+        items=[
+            {
+                "classes": "govuk-input--width-2 govuk-input--error",
+                "name": "day",
+                "value": "6",
+            },
+            {
+                "classes": "govuk-input--width-2 govuk-input--error",
+                "name": "month",
+                "value": "3",
+            },
+            {
+                "classes": "govuk-input--width-4 govuk-input--error",
+                "name": "year",
+                "value": "2076",
+            }
+        ]
     )
     return render(request, "example/components.html", context)

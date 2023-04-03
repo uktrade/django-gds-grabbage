@@ -9,7 +9,7 @@ class BreadcrumbItem(TypedDict):
     href: str
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GovUKBreadcrumbs(GovUKComponent):
     items: List[BreadcrumbItem]
 
@@ -17,6 +17,8 @@ class GovUKBreadcrumbs(GovUKComponent):
     macro_name = "govukBreadcrumbs"
 
     def get_data(self) -> Dict[str, Any]:
-        return {
-            "items": self.items,
-        }
+        data = super().get_data()
+        data.update(
+            items=self.items,
+        )
+        return data

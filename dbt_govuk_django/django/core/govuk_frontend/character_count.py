@@ -12,7 +12,7 @@ class CharacterCountLabel(TypedDict):
 class CharacterCountHint(TypedDict):
     text: str
 
-@dataclass
+@dataclass(kw_only=True)
 class GovUKCharacterCount(GovUKComponent):
     name: str
     id: str
@@ -24,10 +24,12 @@ class GovUKCharacterCount(GovUKComponent):
     macro_name = "govukCharacterCount"
 
     def get_data(self) -> Dict[str, Any]:
-        return {
-            "name": self.name,
-            "id": self.id,
-            "maxlength": self.maxlength,
-            "label": self.label,
-            "hint": self.hint,
-        }
+        data = super().get_data()
+        data.update(
+            name=self.name,
+            id=self.id,
+            maxlength=self.maxlength,
+            label=self.label,
+            hint=self.hint,
+        )
+        return data

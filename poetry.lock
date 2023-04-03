@@ -62,20 +62,20 @@ django-crispy-forms = ">=1.9.0"
 
 [[package]]
 name = "django"
-version = "4.1.7"
+version = "4.2"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "Django-4.1.7-py3-none-any.whl", hash = "sha256:f2f431e75adc40039ace496ad3b9f17227022e8b11566f4b363da44c7e44761e"},
-    {file = "Django-4.1.7.tar.gz", hash = "sha256:44f714b81c5f190d9d2ddad01a532fe502fa01c4cb8faf1d081f4264ed15dcd8"},
+    {file = "Django-4.2-py3-none-any.whl", hash = "sha256:ad33ed68db9398f5dfb33282704925bce044bef4261cd4fb59e4e7f9ae505a78"},
+    {file = "Django-4.2.tar.gz", hash = "sha256:c36e2ab12824e2ac36afa8b2515a70c53c7742f0d6eaefa7311ec379558db997"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.5.2,<4"
+asgiref = ">=3.6.0,<4"
 "backports.zoneinfo" = {version = "*", markers = "python_version < \"3.9\""}
-sqlparse = ">=0.2.2"
+sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
 [package.extras]
@@ -96,6 +96,21 @@ files = [
 
 [package.dependencies]
 django = ">=3.2"
+
+[[package]]
+name = "govuk-frontend-jinja"
+version = "2.5.0"
+description = "GOV.UK Frontend Jinja Macros"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "govuk-frontend-jinja-2.5.0.tar.gz", hash = "sha256:c74eb3638f7fbdffb87ec71f501ba4deba0066ed1778c88d8171ac21a909e4b9"},
+    {file = "govuk_frontend_jinja-2.5.0-py3-none-any.whl", hash = "sha256:49a390b8445b4744be40e6b556a9b93626bdf7bb546171c6b90c2b414bb08e8a"},
+]
+
+[package.dependencies]
+jinja2 = "<3.0.0 || >3.0.0,<3.0.1 || >3.0.1"
 
 [[package]]
 name = "jinja2"
@@ -205,4 +220,4 @@ crispy = ["crispy-forms-gds"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "52e6de1fe028398c719400afc5fc108f3033635abc9ee69b897eced8e777dd9c"
+content-hash = "b82eb65617d2a5f14dd4ee720a95e537cd5b79d8b92dfc82ffc25287b758be9e"
