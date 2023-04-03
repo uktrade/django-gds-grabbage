@@ -2,24 +2,18 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from dbt_govuk_django.django.core.govuk_frontend.accordion import \
-    GovUKAccordion
+from dbt_govuk_django.django.core.govuk_frontend.accordion import GovUKAccordion
 from dbt_govuk_django.django.core.govuk_frontend.back_link import GovUKBackLink
-from dbt_govuk_django.django.core.govuk_frontend.breadcrumbs import \
-    GovUKBreadcrumbs
+from dbt_govuk_django.django.core.govuk_frontend.breadcrumbs import GovUKBreadcrumbs
 from dbt_govuk_django.django.core.govuk_frontend.button import GovUKButton
-from dbt_govuk_django.django.core.govuk_frontend.character_count import \
-    GovUKCharacterCount
-from dbt_govuk_django.django.core.govuk_frontend.checkboxes import \
-    GovUKCheckboxes
-from dbt_govuk_django.django.core.govuk_frontend.cookie_banner import \
-    GovUKCookieBanner
-from dbt_govuk_django.django.core.govuk_frontend.date_input import \
-    GovUKDateInput
-from dbt_govuk_django.django.core.govuk_frontend.error_message import \
-    GovUKErrorMessage
-from dbt_govuk_django.django.core.govuk_frontend.pagination import \
-    GovUKPagination
+from dbt_govuk_django.django.core.govuk_frontend.character_count import (
+    GovUKCharacterCount,
+)
+from dbt_govuk_django.django.core.govuk_frontend.checkboxes import GovUKCheckboxes
+from dbt_govuk_django.django.core.govuk_frontend.cookie_banner import GovUKCookieBanner
+from dbt_govuk_django.django.core.govuk_frontend.date_input import GovUKDateInput
+from dbt_govuk_django.django.core.govuk_frontend.error_message import GovUKErrorMessage
+from dbt_govuk_django.django.core.govuk_frontend.pagination import GovUKPagination
 
 User = get_user_model()
 
@@ -132,10 +126,10 @@ def components_view(request):
                 },
                 "behaviour": "exclusive",
             },
-        ]
+        ],
     )
     context["cookie_banner"] = GovUKCookieBanner(
-        ariaLabel= "Cookies on [name of service]",
+        ariaLabel="Cookies on [name of service]",
         messages=[
             {
                 "headingText": "Cookies on [name of service]",
@@ -152,30 +146,22 @@ def components_view(request):
                     {
                         "text": "View cookies",
                         "href": "#",
-                    }
-                ]
-            },
-            {
-                "html": "<p class='govuk-body'>Some text</p>",
-                "role": "alert",
-                "hidden": True,
-                "actions": [
-                    {
-                        "text": "Hide cookie message"
-                    }
+                    },
                 ],
             },
             {
                 "html": "<p class='govuk-body'>Some text</p>",
                 "role": "alert",
                 "hidden": True,
-                "actions": [
-                    {
-                        "text": "Hide cookie message"
-                    }
-                ]
-            }
-        ]
+                "actions": [{"text": "Hide cookie message"}],
+            },
+            {
+                "html": "<p class='govuk-body'>Some text</p>",
+                "role": "alert",
+                "hidden": True,
+                "actions": [{"text": "Hide cookie message"}],
+            },
+        ],
     )
     context["date_input"] = GovUKDateInput(
         id="passport-issued",
@@ -208,10 +194,8 @@ def components_view(request):
                 "classes": "govuk-input--width-4 govuk-input--error",
                 "name": "year",
                 "value": "2076",
-            }
-        ]
+            },
+        ],
     )
-    context["error_message"] = GovUKErrorMessage(
-        text="Error message"
-    )
+    context["error_message"] = GovUKErrorMessage(text="Error message")
     return render(request, "example/components.html", context)

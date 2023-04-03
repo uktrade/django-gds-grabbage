@@ -3,8 +3,13 @@ from typing import Any, Dict, Optional, TypedDict
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
-from jinja2 import (ChoiceLoader, Environment, PackageLoader, PrefixLoader,
-                    select_autoescape)
+from jinja2 import (
+    ChoiceLoader,
+    Environment,
+    PackageLoader,
+    PrefixLoader,
+    select_autoescape,
+)
 
 
 class Attributes(TypedDict):
@@ -21,8 +26,14 @@ class GovUKComponent(RenderableMixin):
     def build_jinja_template(self):
         return "".join(
             [
-                "{%- from '", self._jinja2_template, "' import ", self._macro_name, " -%}",
-                "{{ ", self._macro_name, "(data) }}",
+                "{%- from '",
+                self._jinja2_template,
+                "' import ",
+                self._macro_name,
+                " -%}",
+                "{{ ",
+                self._macro_name,
+                "(data) }}",
             ]
         )
 
@@ -30,9 +41,7 @@ class GovUKComponent(RenderableMixin):
         jinja_loader = ChoiceLoader(
             [
                 PrefixLoader(
-                    {
-                        "govuk_frontend_jinja": PackageLoader("govuk_frontend_jinja")
-                    }
+                    {"govuk_frontend_jinja": PackageLoader("govuk_frontend_jinja")}
                 )
             ]
         )
@@ -53,6 +62,7 @@ class FieldsetLegend(TypedDict):
     isPageHeading: bool
     classes: str
 
+
 class Fieldset(TypedDict):
     legend: FieldsetLegend
 
@@ -60,13 +70,14 @@ class Fieldset(TypedDict):
 class HintText(TypedDict):
     text: str
 
+
 @dataclass(kw_only=True)
 class GovUKFieldComponent(GovUKComponent):
-    from dbt_govuk_django.django.core.govuk_frontend.error_message import \
-        GovUKErrorMessage
+    from dbt_govuk_django.django.core.govuk_frontend.error_message import (
+        GovUKErrorMessage,
+    )
 
     name: Optional[str] = None
     fieldset: Fieldset
     hint: HintText
     errorMessage: GovUKErrorMessage
-

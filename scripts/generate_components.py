@@ -58,14 +58,18 @@ for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
         [word.capitalize() for word in component_hyphenated.split("-")]
     )
 
-    print(f"Generating {component_class_name} {component_hyphenated} {component_underscored}")
+    print(
+        f"Generating {component_class_name} {component_hyphenated} {component_underscored}"
+    )
 
     gds_url = f"https://design-system.service.gov.uk/components/{component_hyphenated}/"
 
     with open(filename, "w") as f:
-        f.write(new_component_python.format(
-            component_name=component_name,
-            component_class_name=component_class_name,
-            component_hyphenated=component_hyphenated,
-            gds_url=gds_url,
-        ))
+        f.write(
+            new_component_python.format(
+                component_name=component_name,
+                component_class_name=component_class_name,
+                component_hyphenated=component_hyphenated,
+                gds_url=gds_url,
+            )
+        )

@@ -1,18 +1,20 @@
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, TypedDict
 
-from dbt_govuk_django.django.core.govuk_frontend.base import (Attributes,
-                                                              GovUKComponent)
+from dbt_govuk_django.django.core.govuk_frontend.base import Attributes, GovUKComponent
 
 
 class CharacterCountFormGroup(TypedDict):
     classes: str
+
 
 class CharacterCountCountMessage(TypedDict):
     classes: str
 
+
 class CharacterCountFormGroup(TypedDict):
     classes: str
+
 
 class CharacterCountLabel(TypedDict):
     text: str
@@ -21,12 +23,14 @@ class CharacterCountLabel(TypedDict):
     classes: str
     isPageHeading: bool
 
+
 class CharacterCountHint(TypedDict):
     id: Optional[str]
     text: str
     html: str
     classes: str
     attributes: Attributes
+
 
 @dataclass(kw_only=True)
 class GovUKCharacterCount(GovUKComponent):

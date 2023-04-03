@@ -5,12 +5,18 @@ from django.core.paginator import Page
 from django.template.base import Node, Parser, Token
 
 from dbt_govuk_django.django.core.govuk_frontend.accordion import (
-    AccordionItem, GovUKAccordion)
+    AccordionItem,
+    GovUKAccordion,
+)
 from dbt_govuk_django.django.core.govuk_frontend.pagination import (
-    GovUKPagination, PaginationEllipsis, PaginationItem,
-    PaginationPrevNextLink)
+    GovUKPagination,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationPrevNextLink,
+)
 
 register = template.Library()
+
 
 @register.simple_tag
 def gds_pagination(page_obj: Page):
@@ -50,7 +56,7 @@ def gds_pagination(page_obj: Page):
     pagination_items: List[PaginationItem | PaginationEllipsis] = []
 
     if page_obj.has_previous():
-        previous={
+        previous = {
             "href": f"?page={page_obj.previous_page_number()}",
             "labelText": "Previous",
         }
@@ -75,11 +81,7 @@ def gds_pagination(page_obj: Page):
                 }
             )
 
-    return GovUKPagination(
-        previous=previous,
-        next=next,
-        items=pagination_items
-    )
+    return GovUKPagination(previous=previous, next=next, items=pagination_items)
 
 
 class AccordionNode(Node):
@@ -102,6 +104,7 @@ class AccordionNode(Node):
             id=self.id,
             items=self.accordion_items,
         ).render()
+
 
 class AccordionItemNode(Node):
     heading: str

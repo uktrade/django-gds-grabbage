@@ -14,8 +14,10 @@ class PaginationItem(TypedDict):
     current: bool
     href: str
 
+
 class PaginationEllipsis(TypedDict):
     ellipsis: bool
+
 
 @dataclass(kw_only=True)
 class GovUKPagination(GovUKComponent):

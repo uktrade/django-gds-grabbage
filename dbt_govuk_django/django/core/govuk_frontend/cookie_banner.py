@@ -11,12 +11,14 @@ class CookieBannerMessageAction(TypedDict):
     value: Optional[str]
     href: Optional[str]
 
+
 class CookieBannerMessageItem(TypedDict):
     headingText: Optional[str]
     html: str
     role: Optional[str]
     actions: List[CookieBannerMessageAction]
     hidden: Optional[bool]
+
 
 @dataclass(kw_only=True)
 class GovUKCookieBanner(GovUKComponent):

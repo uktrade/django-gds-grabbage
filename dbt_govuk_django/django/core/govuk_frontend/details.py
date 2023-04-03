@@ -16,7 +16,5 @@ class GovUKDetails(GovUKComponent):
 
     def get_data(self) -> Dict[str, Any]:
         data = super().get_data()
-        data.update(
-            ...
-        )
+        data.update(...)
         return data

@@ -1,9 +1,7 @@
-
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, TypedDict
 
-from dbt_govuk_django.django.core.govuk_frontend.base import (Attributes,
-                                                              GovUKComponent)
+from dbt_govuk_django.django.core.govuk_frontend.base import Attributes, GovUKComponent
 
 
 @dataclass(kw_only=True)
