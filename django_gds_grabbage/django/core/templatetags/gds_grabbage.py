@@ -4,11 +4,11 @@ from django import template
 from django.core.paginator import Page
 from django.template.base import Node, Parser, Token
 
-from dbt_govuk_django.django.core.govuk_frontend.accordion import (
+from django_gds_grabbage.django.core.govuk_frontend.accordion import (
     AccordionItem,
     GovUKAccordion,
 )
-from dbt_govuk_django.django.core.govuk_frontend.pagination import (
+from django_gds_grabbage.django.core.govuk_frontend.pagination import (
     GovUKPagination,
     PaginationEllipsis,
     PaginationItem,

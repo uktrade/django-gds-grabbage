@@ -4,7 +4,7 @@ new_component_python = '''
 from dataclasses import dataclass
 from typing import Any, Dict
 
-from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
+from django_gds_grabbage.django.core.govuk_frontend.base import GovUKComponent
 
 
 @dataclass(kw_only=True)
@@ -44,7 +44,9 @@ for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
     # e.g. "govuk_frontend_jinja/components/accordion/macro.html" -> "dbt_django/core/govuk_frontend/accordion.py"
 
     component_underscored = component_hyphenated.replace("-", "_")
-    filename = f"dbt_govuk_django/django/core/govuk_frontend/{component_underscored}.py"
+    filename = (
+        f"django_gds_grabbage/django/core/govuk_frontend/{component_underscored}.py"
+    )
 
     # Check if file already exists. If it does, don't overwrite it.
     if os.path.exists(filename):

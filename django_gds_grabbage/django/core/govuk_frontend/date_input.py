@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from dbt_govuk_django.django.core.govuk_frontend.base import GovUKFieldComponent
+from django_gds_grabbage.django.core.govuk_frontend.base import GovUKFieldComponent
 
 
 @dataclass(kw_only=True)

@@ -15,7 +15,7 @@ ALLOWED_HOSTS: List[str] = []
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "dbt_govuk_django",
+    "django_gds_grabbage",
 ]
 
 MIDDLEWARE: List[str] = []

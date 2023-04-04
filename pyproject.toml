@@ -4,11 +4,12 @@ version = "0.1.0"
 description = ""
 authors = [
     "DBT Live Service Team <live.services@digital.trade.gov.uk>",
-    "Cameron Lamb <cameron.lamb@digital.trade.gov.uk>",
+    "Cam Lamb <cameron.lamb@digital.trade.gov.uk>",
+    "Sam Dudley <samuel.dudley@digital.trade.gov.uk>",
 ]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "dbt_govuk_django"}]
+packages = [{include = "django_gds_grabbage"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"

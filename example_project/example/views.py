@@ -2,18 +2,22 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from dbt_govuk_django.django.core.govuk_frontend.accordion import GovUKAccordion
-from dbt_govuk_django.django.core.govuk_frontend.back_link import GovUKBackLink
-from dbt_govuk_django.django.core.govuk_frontend.breadcrumbs import GovUKBreadcrumbs
-from dbt_govuk_django.django.core.govuk_frontend.button import GovUKButton
-from dbt_govuk_django.django.core.govuk_frontend.character_count import (
+from django_gds_grabbage.django.core.govuk_frontend.accordion import GovUKAccordion
+from django_gds_grabbage.django.core.govuk_frontend.back_link import GovUKBackLink
+from django_gds_grabbage.django.core.govuk_frontend.breadcrumbs import GovUKBreadcrumbs
+from django_gds_grabbage.django.core.govuk_frontend.button import GovUKButton
+from django_gds_grabbage.django.core.govuk_frontend.character_count import (
     GovUKCharacterCount,
 )
-from dbt_govuk_django.django.core.govuk_frontend.checkboxes import GovUKCheckboxes
-from dbt_govuk_django.django.core.govuk_frontend.cookie_banner import GovUKCookieBanner
-from dbt_govuk_django.django.core.govuk_frontend.date_input import GovUKDateInput
-from dbt_govuk_django.django.core.govuk_frontend.error_message import GovUKErrorMessage
-from dbt_govuk_django.django.core.govuk_frontend.pagination import GovUKPagination
+from django_gds_grabbage.django.core.govuk_frontend.checkboxes import GovUKCheckboxes
+from django_gds_grabbage.django.core.govuk_frontend.cookie_banner import (
+    GovUKCookieBanner,
+)
+from django_gds_grabbage.django.core.govuk_frontend.date_input import GovUKDateInput
+from django_gds_grabbage.django.core.govuk_frontend.error_message import (
+    GovUKErrorMessage,
+)
+from django_gds_grabbage.django.core.govuk_frontend.pagination import GovUKPagination
 
 User = get_user_model()
 

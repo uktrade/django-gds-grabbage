@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, TypedDict
+from typing import Any, Dict, Optional, TypedDict
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
@@ -11,9 +11,7 @@ from jinja2 import (
     select_autoescape,
 )
 
-
-class Attributes(TypedDict):
-    pass
+Attributes = Dict[str, Any]
 
 
 class GovUKComponent(RenderableMixin):
@@ -72,7 +70,7 @@ class HintText(TypedDict):
 
 @dataclass(kw_only=True)
 class GovUKFieldComponent(GovUKComponent):
-    from dbt_govuk_django.django.core.govuk_frontend.error_message import (
+    from django_gds_grabbage.django.core.govuk_frontend.error_message import (
         GovUKErrorMessage,
     )
 

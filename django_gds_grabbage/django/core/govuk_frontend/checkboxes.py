@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional, TypedDict
 
-from dbt_govuk_django.django.core.govuk_frontend.base import (
+from django_gds_grabbage.django.core.govuk_frontend.base import (
     FormGroup,
     GovUKFieldComponent,
     HintText,

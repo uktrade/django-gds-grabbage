@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from dbt_govuk_django.django.core.govuk_frontend.base import (
+from django_gds_grabbage.django.core.govuk_frontend.base import (
     Attributes,
     FormGroup,
     GovUKComponent,

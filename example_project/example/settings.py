@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_forms_gds",
-    "dbt_govuk_django",
-    "dbt_govuk_django.django.core",
+    "django_gds_grabbage",
+    "django_gds_grabbage.django.core",
     "example",
 ]
 
