@@ -1,24 +1,14 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import List, Optional
 
-from dbt_govuk_django.django.core.govuk_frontend.base import Attributes, GovUKComponent
-
-
-@dataclass(kw_only=True)
-class AccordionItemText:
-    text: str
-
-
-@dataclass(kw_only=True)
-class AccordionItemHtml:
-    html: str
+from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent, TextAndHtml
 
 
 @dataclass(kw_only=True)
 class AccordionItem:
-    heading: AccordionItemText
-    summary: Optional[AccordionItemText]
-    content: AccordionItemHtml
+    heading: Optional[TextAndHtml] = None
+    summary: Optional[TextAndHtml] = None
+    content: Optional[TextAndHtml] = None
 
 
 @dataclass(kw_only=True)

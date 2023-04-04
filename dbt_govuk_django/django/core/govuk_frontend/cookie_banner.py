@@ -1,10 +1,11 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import List, Optional, TypedDict
 
 from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 
-class CookieBannerMessageAction(TypedDict):
+@dataclass(kw_only=True)
+class CookieBannerMessageAction:
     text: str
     type: Optional[str]
     name: Optional[str]
@@ -12,7 +13,8 @@ class CookieBannerMessageAction(TypedDict):
     href: Optional[str]
 
 
-class CookieBannerMessageItem(TypedDict):
+@dataclass(kw_only=True)
+class CookieBannerMessageItem:
     headingText: Optional[str]
     html: str
     role: Optional[str]

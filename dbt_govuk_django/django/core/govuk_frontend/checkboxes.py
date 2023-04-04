@@ -1,19 +1,20 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import List, Optional, TypedDict
 
 from dbt_govuk_django.django.core.govuk_frontend.base import (
-    Fieldset,
+    FormGroup,
     GovUKFieldComponent,
     HintText,
 )
-from dbt_govuk_django.django.core.govuk_frontend.error_message import GovUKErrorMessage
 
 
-class CheckboxDivider(TypedDict):
+@dataclass(kw_only=True)
+class CheckboxDivider:
     divider: str
 
 
-class CheckboxItem(TypedDict):
+@dataclass(kw_only=True)
+class CheckboxItem:
     value: str
     text: str
     hint: Optional[HintText]
@@ -28,6 +29,9 @@ class GovUKCheckboxes(GovUKFieldComponent):
     """
 
     items: List[CheckboxDivider | CheckboxItem]
+    describedBy: Optional[str] = None
+    formGroup: Optional[FormGroup] = None
+    idPrefix: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/checkboxes/macro.html"
     _macro_name = "govukCheckboxes"

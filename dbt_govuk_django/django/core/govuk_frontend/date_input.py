@@ -1,14 +1,11 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import List
 
-from dbt_govuk_django.django.core.govuk_frontend.base import (
-    Fieldset,
-    GovUKComponent,
-    GovUKFieldComponent,
-)
+from dbt_govuk_django.django.core.govuk_frontend.base import GovUKFieldComponent
 
 
-class DateInputItem(TypedDict):
+@dataclass(kw_only=True)
+class DateInputItem:
     classes: str
     name: str
     value: str

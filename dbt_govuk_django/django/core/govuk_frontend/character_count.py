@@ -1,35 +1,38 @@
-from dataclasses import dataclass
-from typing import Any, Dict, Optional, TypedDict
+from dataclasses import dataclass, field
+from typing import Optional
 
-from dbt_govuk_django.django.core.govuk_frontend.base import Attributes, GovUKComponent
+from dbt_govuk_django.django.core.govuk_frontend.base import (
+    Attributes,
+    FormGroup,
+    GovUKComponent,
+)
 
 
-class CharacterCountFormGroup(TypedDict):
+@dataclass(kw_only=True)
+class CharacterCountCountMessage:
     classes: str
 
 
-class CharacterCountCountMessage(TypedDict):
-    classes: str
+@dataclass(kw_only=True)
+class CharacterCountLabel:
+    text: Optional[str] = None
+    html: Optional[str] = None
+    _for: Optional[str] = field(
+        metadata={"name": "for"},
+        default=None,
+    )
+    isPageHeading: Optional[bool] = None
+    classes: Optional[str] = None
+    attributes: Optional[Attributes] = None
 
 
-class CharacterCountFormGroup(TypedDict):
-    classes: str
-
-
-class CharacterCountLabel(TypedDict):
-    text: str
-    html: str
-    # for: str
-    classes: str
-    isPageHeading: bool
-
-
-class CharacterCountHint(TypedDict):
-    id: Optional[str]
-    text: str
-    html: str
-    classes: str
-    attributes: Attributes
+@dataclass(kw_only=True)
+class CharacterCountHint:
+    id: Optional[str] = None
+    text: Optional[str] = None
+    html: Optional[str] = None
+    classes: Optional[str] = None
+    attributes: Optional[Attributes] = None
 
 
 @dataclass(kw_only=True)
@@ -49,7 +52,7 @@ class GovUKCharacterCount(GovUKComponent):
     label: Optional[CharacterCountLabel] = None
     hint: Optional[CharacterCountHint] = None
     spellcheck: bool = False
-    formGroup: Optional[CharacterCountFormGroup] = None
+    formGroup: Optional[FormGroup] = None
     countMessage: Optional[CharacterCountCountMessage] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/character-count/macro.html"

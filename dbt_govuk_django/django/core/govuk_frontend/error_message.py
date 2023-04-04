@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 

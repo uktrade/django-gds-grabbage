@@ -1,21 +1,24 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import Any, Dict, List, Optional
 
 from dbt_govuk_django.django.core.govuk_frontend.base import GovUKComponent
 
 
-class PaginationPrevNextLink(TypedDict):
+@dataclass(kw_only=True)
+class PaginationPrevNextLink:
     href: str
     labelText: Optional[str]
 
 
-class PaginationItem(TypedDict):
+@dataclass(kw_only=True)
+class PaginationItem:
     number: int
     current: bool
     href: str
 
 
-class PaginationEllipsis(TypedDict):
+@dataclass(kw_only=True)
+class PaginationEllipsis:
     ellipsis: bool
 
 

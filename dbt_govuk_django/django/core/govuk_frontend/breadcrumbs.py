@@ -1,14 +1,15 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import List, Optional
 
 from dbt_govuk_django.django.core.govuk_frontend.base import Attributes, GovUKComponent
 
 
-class BreadcrumbItem(TypedDict):
-    text: str
-    html: str
-    href: str
-    attributes: Attributes
+@dataclass(kw_only=True)
+class BreadcrumbItem:
+    text: Optional[str] = None
+    html: Optional[str] = None
+    href: Optional[str] = None
+    attributes: Attributes = None
 
 
 @dataclass(kw_only=True)

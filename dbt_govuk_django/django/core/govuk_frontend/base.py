@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, TypedDict
+from typing import Optional, TypedDict
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
@@ -51,7 +51,6 @@ class GovUKComponent(RenderableMixin):
         )
         template = env.from_string(self.build_jinja_template())
         return mark_safe(template.render(data=self.__dict__))
-        # return mark_safe(template.render(data=self.get_data()))
 
     __str__ = render
     __html__ = render
@@ -81,3 +80,14 @@ class GovUKFieldComponent(GovUKComponent):
     fieldset: Fieldset
     hint: HintText
     errorMessage: GovUKErrorMessage
+
+
+@dataclass(kw_only=True)
+class TextAndHtml:
+    text: Optional[str] = None
+    html: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class FormGroup:
+    classes: Optional[str] = None
