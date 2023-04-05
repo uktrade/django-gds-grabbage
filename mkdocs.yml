@@ -56,7 +56,8 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - tables
-# TODO: Improve the nav
-# nav:
-#   - "index.md"
-#   - "getting-started.md"
+
+nav:
+  - "index.md"
+  - "getting-started.md"
+  - "contributing/index.md"
