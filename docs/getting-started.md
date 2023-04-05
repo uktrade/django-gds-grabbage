@@ -1,3 +1,7 @@
+---
+hide:
+  - navigation
+---
 # Getting started
 
 First install the package:

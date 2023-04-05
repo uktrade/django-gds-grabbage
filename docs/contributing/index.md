@@ -4,14 +4,17 @@ This is all the documentation for contributing to the project.
 
 ## Setting up your dev environment
 
-- Pull the repo
-  ```bash
-  git clone git@github.com:uktrade/django-gds-grabbage.git
-  ```
-- We use poetry to manage our package and it's dependencies
-  ```bash
-  poetry install
-  ```
+Pull the repo
+
+```bash
+git clone git@github.com:uktrade/django-gds-grabbage.git
+```
+
+We use poetry to manage our package and it's dependencies
+
+```bash
+poetry install
+```
 
 ## Writing documentation
 

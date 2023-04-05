@@ -1,0 +1,5 @@
+nav:
+  - About: index.md
+  - Getting started: getting-started.md
+  - Contributing: contributing
+  - GDS Components: gds-components

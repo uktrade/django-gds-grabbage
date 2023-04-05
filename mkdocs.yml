@@ -3,12 +3,12 @@ site_url: https://uktrade.github.io/django-gds-grabbage/
 repo_url: https://github.com/uktrade/django-gds-grabbage/
 site_description: Documentation for the Django GDS Grabbage package
 plugins:
+  - awesome-pages
   - material/social:
       cards_color:
         fill: "#ffffff"
         text: "#000000"
       cards_font: "Roboto"
-
   - material/search:
       lang: en
   - mkdocstrings:
@@ -56,8 +56,3 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - tables
-
-nav:
-  - "index.md"
-  - "getting-started.md"
-  - "contributing/index.md"
