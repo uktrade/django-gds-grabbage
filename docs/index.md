@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # Django GDS Grabbage
 
 ## Grabbage
