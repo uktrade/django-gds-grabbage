@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dbt-govuk-django-example-project"
+name = "django-gds-grabbage-example-project"
 version = "0.1.0"
 description = ""
 authors = []
@@ -8,7 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.1.7"
-dbt-govuk-django = { path = "../", develop = true, extras = ["crispy"] }
+django-gds-grabbage = { path = "../", develop = true, extras = ["crispy"] }
 whitenoise = "^6.4.0"
 govuk-frontend-jinja = "^2.5.0"
 

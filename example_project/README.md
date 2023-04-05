@@ -1,8 +1,8 @@
-# dbt-govuk-django example project
+# Django GDS Grabbage example project
 
-# Getting started
+## Getting started
 
-## Requirements
+### Requirements
 
 - `poetry`
 
@@ -18,15 +18,15 @@ Navigate a browser to:
 
 - http://localhost:8000
 
-# Users
+## Users
 
-## John Doe
+### John Doe
 
 username: john.doe
 password: yi46zpr0
 description: superuser
 
-## Jane Doe
+### Jane Doe
 
 username: jane.doe
 password: 5ke46fxv

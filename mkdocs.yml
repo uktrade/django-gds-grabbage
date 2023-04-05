@@ -1,0 +1,50 @@
+site_name: Django GDS Grabbage
+site_url: https://github.com/uktrade/django-gds-grabbage
+repo_url: https://github.com/uktrade/django-gds-grabbage
+plugins:
+  # - social
+  - search:
+      lang: en
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+
+theme:
+  name: tech_docs_template
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - header.autohide
+    - search.suggest
+    - search.highlight
+    - search.share
+
+# extra:
+#   social:
+#     - icon: fontawesome/brands/github
+#       link: https://github.com/uktrade/django-gds-grabbage
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js # /PS-IGNORE
+  - js/tablesort.js
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - tables

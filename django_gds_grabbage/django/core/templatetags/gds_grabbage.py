@@ -46,7 +46,7 @@ def gds_pagination(page_obj: Page):
 
         *template.html:*
         ```django-html
-        {% load dbt_govuk_django_core %}
+        {% load gds_grabbage %}
         {% gds_pagination page_obj %}
         ```
     """
@@ -130,6 +130,7 @@ def gds_accordion(parser: Parser, token: Token):
     Usage:
         template.html:
         ```django-html
+        {% load gds_grabbage %}
         {% gds_accordion "accordion-1" %}
             {% gds_accordion_item "Heading 1" "Summary 1" %}
                 <strong>Content1</strong>

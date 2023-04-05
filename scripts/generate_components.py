@@ -41,7 +41,7 @@ jinja_path = govuk_frontend_jinja.__path__[0]
 
 for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
     # Generate Python code for each component
-    # e.g. "govuk_frontend_jinja/components/accordion/macro.html" -> "dbt_django/core/govuk_frontend/accordion.py"
+    # e.g. "govuk_frontend_jinja/components/accordion/macro.html" -> "django_gds_grabbage/core/govuk_frontend/accordion.py"
 
     component_underscored = component_hyphenated.replace("-", "_")
     filename = (

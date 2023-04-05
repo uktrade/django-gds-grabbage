@@ -32,7 +32,7 @@ Django = ">=2.2"
 django-crispy-forms = ">=1.9.0"
 
 [[package]]
-name = "dbt-govuk-django"
+name = "django-gds-grabbage"
 version = "0.1.0"
 description = ""
 category = "main"
