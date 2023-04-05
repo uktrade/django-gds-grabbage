@@ -1,6 +1,6 @@
 site_name: Django GDS Grabbage
-site_url: https://github.com/uktrade/django-gds-grabbage
-repo_url: https://github.com/uktrade/django-gds-grabbage
+site_url: https://uktrade.github.io/django-gds-grabbage/
+repo_url: https://github.com/uktrade/django-gds-grabbage/
 plugins:
   # - social
   - search:

@@ -9,9 +9,9 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/uktrade/django-gds-grabbage"
-repository = "https://github.com/uktrade/django-gds-grabbage"
-documentation = "https://github.com/uktrade/django-gds-grabbage"
+homepage = "https://uktrade.github.io/django-gds-grabbage/"
+repository = "https://github.com/uktrade/django-gds-grabbage/"
+documentation = "https://uktrade.github.io/django-gds-grabbage/"
 packages = [{include = "django_gds_grabbage"}]
 
 [tool.poetry.dependencies]
