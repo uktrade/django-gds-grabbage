@@ -1,4 +1,4 @@
-# GDS Pagination
+# Pagination
 
 See: [https://design-system.service.gov.uk/components/pagination/](https://design-system.service.gov.uk/components/pagination/)
 

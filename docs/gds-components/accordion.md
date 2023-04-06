@@ -1,4 +1,4 @@
-# GDS Accordion
+# Accordion
 
 See: [https://design-system.service.gov.uk/components/accordion/](https://design-system.service.gov.uk/components/accordion/)
 
