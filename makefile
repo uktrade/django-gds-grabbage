@@ -9,3 +9,6 @@ push-pypi:
 
 serve-docs:
 	poetry run mkdocs serve
+
+generate-components:
+	poetry run python scripts/generate_components.py

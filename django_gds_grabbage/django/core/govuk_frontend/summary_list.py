@@ -9,19 +9,15 @@ from django_gds_grabbage.django.core.govuk_frontend import fieldset as govuk_fro
 
 
 @dataclass(kw_only=True)
-class GovUKDetails(govuk_frontend_base.GovUKComponent):
-    """GovUK Details
+class GovUKSummaryList(govuk_frontend_base.GovUKComponent):
+    """GovUK Summary List
 
-    See: https://design-system.service.gov.uk/components/details/
+    See: https://design-system.service.gov.uk/components/summary-list/
     """
 
-    summaryText: str
-    summaryHtml: str
-    text: Optional[str] = None
-    html: Optional[str] = None
-    id: Optional[str] = None
-    open: Optional[bool] = None
+    rows: govuk_frontend_base.SummaryListRows
+    card: Optional[Dict[str, Any]] = None
 
-    _jinja2_template = "govuk_frontend_jinja/components/details/macro.html"
-    _macro_name = "govukDetails"
+    _jinja2_template = "govuk_frontend_jinja/components/summary-list/macro.html"
+    _macro_name = "govukSummaryList"
 

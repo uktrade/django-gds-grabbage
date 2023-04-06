@@ -9,24 +9,22 @@ from django_gds_grabbage.django.core.govuk_frontend import fieldset as govuk_fro
 
 
 @dataclass(kw_only=True)
-class GovUKButton(govuk_frontend_base.GovUKComponent):
-    """GovUK Button
+class GovUKFileUpload(govuk_frontend_base.GovUKComponent):
+    """GovUK File Upload
 
-    See: https://design-system.service.gov.uk/components/button/
+    See: https://design-system.service.gov.uk/components/file-upload/
     """
 
-    element: Optional[str] = None
-    text: Optional[str] = None
-    html: Optional[str] = None
-    name: Optional[str] = None
-    type: Optional[str] = None
+    name: str
+    id: str
     value: Optional[str] = None
     disabled: Optional[bool] = None
-    href: Optional[str] = None
-    preventDoubleClick: Optional[bool] = None
-    isStartButton: Optional[bool] = None
-    id: Optional[str] = None
+    describedBy: Optional[str] = None
+    label: Dict[str, Any]
+    hint: Optional[govuk_frontend_hint.GovUKHint] = None
+    errorMessage: Optional[govuk_frontend_error_message.GovUKErrorMessage] = None
+    formGroup: Optional[govuk_frontend_base.FormGroup] = None
 
-    _jinja2_template = "govuk_frontend_jinja/components/button/macro.html"
-    _macro_name = "govukButton"
+    _jinja2_template = "govuk_frontend_jinja/components/file-upload/macro.html"
+    _macro_name = "govukFileUpload"
 

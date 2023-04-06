@@ -4,15 +4,11 @@ from django import template
 from django.core.paginator import Page
 from django.template.base import Node, Parser, Token
 
-from django_gds_grabbage.django.core.govuk_frontend.accordion import (
-    AccordionItem,
-    GovUKAccordion,
-)
+from django_gds_grabbage.django.core.govuk_frontend.accordion import GovUKAccordion
+from django_gds_grabbage.django.core.govuk_frontend.base import AccordionItem
 from django_gds_grabbage.django.core.govuk_frontend.pagination import (
     GovUKPagination,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationPrevNextLink,
+    PaginationItems,
 )
 
 register = template.Library()
@@ -51,9 +47,9 @@ def gds_pagination(page_obj: Page):
         ```
     """
 
-    previous: Optional[PaginationPrevNextLink] = None
-    next: Optional[PaginationPrevNextLink] = None
-    pagination_items: List[PaginationItem | PaginationEllipsis] = []
+    previous: Optional[Any] = None
+    next: Optional[Any] = None
+    pagination_items: List[PaginationItems] = []
 
     if page_obj.has_previous():
         previous = {

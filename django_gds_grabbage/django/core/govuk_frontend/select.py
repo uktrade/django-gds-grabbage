@@ -9,31 +9,31 @@ from django_gds_grabbage.django.core.govuk_frontend import fieldset as govuk_fro
 
 
 @dataclass(kw_only=True)
-class DateInputItems:
-    id: Optional[str] = None
-    name: str
-    label: Optional[str] = None
+class SelectItems:
     value: Optional[str] = None
-    autocomplete: Optional[str] = None
-    pattern: Optional[str] = None
-    classes: Optional[str] = None
+    text: str
+    selected: Optional[bool] = None
+    disabled: Optional[bool] = None
     attributes: Optional[Dict[str, Any]] = None
 
 @dataclass(kw_only=True)
-class GovUKDateInput(govuk_frontend_base.GovUKComponent):
-    """GovUK Date Input
+class GovUKSelect(govuk_frontend_base.GovUKComponent):
+    """GovUK Select
 
-    See: https://design-system.service.gov.uk/components/date-input/
+    See: https://design-system.service.gov.uk/components/select/
     """
 
     id: str
-    namePrefix: Optional[str] = None
-    items: Optional[List[DateInputItems]] = None
+    name: str
+    items: List[SelectItems]
+    value: Optional[str] = None
+    disabled: Optional[bool] = None
+    describedBy: Optional[str] = None
+    label: Optional[Dict[str, Any]] = None
     hint: Optional[govuk_frontend_hint.GovUKHint] = None
     errorMessage: Optional[govuk_frontend_error_message.GovUKErrorMessage] = None
     formGroup: Optional[govuk_frontend_base.FormGroup] = None
-    fieldset: Optional[govuk_frontend_fieldset.GovUKFieldset] = None
 
-    _jinja2_template = "govuk_frontend_jinja/components/date-input/macro.html"
-    _macro_name = "govukDateInput"
+    _jinja2_template = "govuk_frontend_jinja/components/select/macro.html"
+    _macro_name = "govukSelect"
 

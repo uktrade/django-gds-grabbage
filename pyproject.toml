@@ -28,6 +28,7 @@ crispy = ["crispy-forms-gds"]
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
+pyyaml = "^6.0"
 
 
 [tool.poetry.group.docs.dependencies]

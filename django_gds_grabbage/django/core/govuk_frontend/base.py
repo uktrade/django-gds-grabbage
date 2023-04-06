@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, TypedDict
+from typing import Any, ClassVar, Dict, List, Optional, TypedDict
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
@@ -18,8 +18,8 @@ class GovUKComponent(RenderableMixin):
     classes: Optional[str] = None
     attributes: Optional[Attributes] = None
 
-    _jinja2_template: str
-    _macro_name: str
+    _jinja2_template: ClassVar[str]
+    _macro_name: ClassVar[str]
 
     def build_jinja_template(self):
         return "".join(
@@ -60,26 +60,6 @@ class FieldsetLegend(TypedDict):
     classes: str
 
 
-class Fieldset(TypedDict):
-    legend: FieldsetLegend
-
-
-class HintText(TypedDict):
-    text: str
-
-
-@dataclass(kw_only=True)
-class GovUKFieldComponent(GovUKComponent):
-    from django_gds_grabbage.django.core.govuk_frontend.error_message import (
-        GovUKErrorMessage,
-    )
-
-    name: Optional[str] = None
-    fieldset: Fieldset
-    hint: HintText
-    errorMessage: GovUKErrorMessage
-
-
 @dataclass(kw_only=True)
 class TextAndHtml:
     text: Optional[str] = None
@@ -89,3 +69,67 @@ class TextAndHtml:
 @dataclass(kw_only=True)
 class FormGroup:
     classes: Optional[str] = None
+
+
+"""
+Accordion
+"""
+
+
+@dataclass(kw_only=True)
+class AccordionItem:
+    heading: Optional[TextAndHtml] = None
+    summary: Optional[TextAndHtml] = None
+    content: Optional[TextAndHtml] = None
+    expanded: Optional[bool] = None
+
+
+"""
+Checkboxes
+"""
+
+
+class CheckboxesConditional(TypedDict):
+    html: str
+
+
+"""
+Summary List
+"""
+
+
+@dataclass(kw_only=True)
+class SummaryListRowsActionsItem:
+    href: str
+    text: Optional[str]
+    html: Optional[str]
+    visuallyHiddenText: Optional[str] = None
+    classes: Optional[str] = None
+    attributes: Optional[Dict[str, Any]] = None
+
+
+@dataclass(kw_only=True)
+class SummaryListRowsKey(TextAndHtml):
+    classes: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class SummaryListRowsValue(TextAndHtml):
+    classes: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class SummaryListRowsActions:
+    items: List[SummaryListRowsActionsItem]
+    classes: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class SummaryListRow:
+    classes: Optional[str] = None
+    key: Optional[SummaryListRowsActions] = None
+    value: Optional[SummaryListRowsValue] = None
+    actions: Optional[SummaryListRowsActions] = None
+
+
+SummaryListRows = List[SummaryListRow]

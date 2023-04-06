@@ -9,24 +9,22 @@ from django_gds_grabbage.django.core.govuk_frontend import fieldset as govuk_fro
 
 
 @dataclass(kw_only=True)
-class GovUKButton(govuk_frontend_base.GovUKComponent):
-    """GovUK Button
+class GovUKNotificationBanner(govuk_frontend_base.GovUKComponent):
+    """GovUK Notification Banner
 
-    See: https://design-system.service.gov.uk/components/button/
+    See: https://design-system.service.gov.uk/components/notification-banner/
     """
 
-    element: Optional[str] = None
     text: Optional[str] = None
     html: Optional[str] = None
-    name: Optional[str] = None
+    titleText: Optional[str] = None
+    titleHtml: Optional[str] = None
+    titleHeadingLevel: Optional[str] = None
     type: Optional[str] = None
-    value: Optional[str] = None
-    disabled: Optional[bool] = None
-    href: Optional[str] = None
-    preventDoubleClick: Optional[bool] = None
-    isStartButton: Optional[bool] = None
-    id: Optional[str] = None
+    role: Optional[str] = None
+    titleId: Optional[str] = None
+    disableAutoFocus: Optional[bool] = None
 
-    _jinja2_template = "govuk_frontend_jinja/components/button/macro.html"
-    _macro_name = "govukButton"
+    _jinja2_template = "govuk_frontend_jinja/components/notification-banner/macro.html"
+    _macro_name = "govukNotificationBanner"
 

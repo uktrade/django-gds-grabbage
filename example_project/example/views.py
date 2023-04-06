@@ -67,6 +67,7 @@ def components_view(request):
         label={"text": "Character count"},
         hint={"text": "Hint text"},
         maxlength=200,
+        maxwords="",
     )
     context["pagination"] = GovUKPagination(
         previous={
