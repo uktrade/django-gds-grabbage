@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from django import template
 from django.template.base import Node, Parser, Token

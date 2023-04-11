@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load gds_grabbage %}
+
+{% block title %}{{ component_name }}{% endblock %}
+
+{% block content %}
+    {% gds_back_link viewname="components" %}
+    <h1 class="govuk-heading-l">{{ component_name }}</h1>
+    <a href="https://uktrade.github.io/django-gds-grabbage/gds-components/{{ component_hyphenated_name }}/" class="govuk-link">Documentation</a>
+    <p class="govuk-body">
+        <code>django_gds_grabbage/django/core/govuk_frontend/{{ component_underscored_name }}.py</code>
+    </p>
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    {{ component }}
+{% endblock %}

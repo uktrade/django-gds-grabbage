@@ -16,10 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from example_project.example.views import UserListingView, components_view
+from example_project.example.views import (
+    UserListingView,
+    component_view,
+    components_view,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", UserListingView.as_view(), name="user-listing"),
     path("components/", components_view, name="components"),
+    path(
+        "components/<str:component_hyphenated_name>/",
+        component_view,
+        name="component",
+    ),
 ]

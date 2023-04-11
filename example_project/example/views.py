@@ -1,3 +1,7 @@
+import os
+import pathlib
+
+from django import forms
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -28,11 +32,8 @@ class UserListingView(ListView):
     paginate_by = 1
 
 
-def components_view(request):
-    context = {}
-    context["back_link"] = GovUKBackLink(text="Back", href="/")
-    context["button"] = GovUKButton(text="Save and continue")
-    context["accordion"] = GovUKAccordion(
+COMPONENT_EXAMPLES = {
+    "accordion": GovUKAccordion(
         id="accordion-default",
         items=[
             {
@@ -54,57 +55,24 @@ def components_view(request):
                 "content": {"html": "Content 4"},
             },
         ],
-    )
-    context["breadcrumbs"] = GovUKBreadcrumbs(
+    ),
+    "back-link": GovUKBackLink(text="Back", href="/"),
+    "breadcrumbs": GovUKBreadcrumbs(
         items=[
             {"text": "Home", "href": "/"},
             {"text": "Section", "href": "/section"},
         ]
-    )
-    context["character_count"] = GovUKCharacterCount(
+    ),
+    "button": GovUKButton(text="Save and continue"),
+    "character-count": GovUKCharacterCount(
         id="character-count",
         name="character-count",
         label={"text": "Character count"},
         hint={"text": "Hint text"},
         maxlength=200,
         maxwords="",
-    )
-    context["pagination"] = GovUKPagination(
-        previous={
-            "href": "/",
-            "labelText": "Previous",
-        },
-        next={
-            "href": "/",
-            "labelText": "Next",
-        },
-        items=[
-            {
-                "number": 1,
-                "current": True,
-                "href": "/",
-            },
-            {
-                "ellipsis": True,
-            },
-            {
-                "number": 3,
-                "href": "/",
-            },
-            {
-                "number": 4,
-                "href": "/",
-            },
-            {
-                "ellipsis": True,
-            },
-            {
-                "number": 6,
-                "href": "/",
-            },
-        ],
-    )
-    context["checkboxes"] = GovUKCheckboxes(
+    ),
+    "checkboxes": GovUKCheckboxes(
         name="checkboxes_1",
         fieldset={
             "legend": {"text": "Legend text"},
@@ -132,8 +100,8 @@ def components_view(request):
                 "behaviour": "exclusive",
             },
         ],
-    )
-    context["cookie_banner"] = GovUKCookieBanner(
+    ),
+    "cookie-banner": GovUKCookieBanner(
         ariaLabel="Cookies on [name of service]",
         messages=[
             {
@@ -167,8 +135,8 @@ def components_view(request):
                 "actions": [{"text": "Hide cookie message"}],
             },
         ],
-    )
-    context["date_input"] = GovUKDateInput(
+    ),
+    "date-input": GovUKDateInput(
         id="passport-issued",
         namePrefix="passport-issued",
         fieldset={
@@ -201,6 +169,85 @@ def components_view(request):
                 "value": "2076",
             },
         ],
+    ),
+    "error-message": GovUKErrorMessage(text="Error message"),
+    "pagination": GovUKPagination(
+        previous={
+            "href": "/",
+            "labelText": "Previous",
+        },
+        next={
+            "href": "/",
+            "labelText": "Next",
+        },
+        items=[
+            {
+                "number": 1,
+                "current": True,
+                "href": "/",
+            },
+            {
+                "ellipsis": True,
+            },
+            {
+                "number": 3,
+                "href": "/",
+            },
+            {
+                "number": 4,
+                "href": "/",
+            },
+            {
+                "ellipsis": True,
+            },
+            {
+                "number": 6,
+                "href": "/",
+            },
+        ],
+    ),
+}
+
+
+class CustomForm(forms.Form):
+    # Checkboxes
+    contact = forms.ChoiceField(
+        label="How would you like to be contacted?",
+        choices=(
+            ("email", "Email"),
+            ("phone", "Phone"),
+            ("text", "Text"),
+        ),
+        widget=forms.CheckboxSelectMultiple,
     )
-    context["error_message"] = GovUKErrorMessage(text="Error message")
-    return render(request, "example/components.html", context)
+
+
+def component_view(request, component_hyphenated_name: str):
+    component_underscored_name = component_hyphenated_name.replace("-", "_")
+    component_name = component_hyphenated_name.replace("-", " ").capitalize()
+    context = {
+        "component_hyphenated_name": component_hyphenated_name,
+        "component_underscored_name": component_underscored_name,
+        "component_name": component_name,
+        "component": COMPONENT_EXAMPLES.get(component_hyphenated_name),
+    }
+
+    parent_dir = pathlib.Path(__file__).parent
+    custom_component_template = (
+        parent_dir / f"templates/example/components/{component_underscored_name}.html"
+    )
+
+    context.update(form=CustomForm)
+
+    if os.path.exists(custom_component_template):
+        return render(request, custom_component_template, context)
+
+    return render(request, "example/components/base.html", context)
+
+
+def components_view(request):
+    context = {"component_list": []}
+    for component_hyphenated_name in COMPONENT_EXAMPLES:
+        context["component_list"].append(component_hyphenated_name)
+    context["component_list"].sort()
+    return render(request, "example/components/listing.html", context)
