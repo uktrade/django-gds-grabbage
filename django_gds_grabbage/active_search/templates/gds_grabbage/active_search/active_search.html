@@ -1,0 +1,14 @@
+<div id="{{ hx_id }}" class="active-search" hx-vals='{"hx_id": "{{ hx_id }}", "hx_name": "{{ hx_name }}"}' hx-include=".active-search__selected-objects">
+    {% include './selected_objects.html' with selected_objects=selected_objects %}
+    <div class="active-search__search">
+        <input
+            type="search"
+            name="query"
+            hx-get="{% url view_name %}?hx_action=search"
+            hx-trigger="keyup changed delay:500ms, search, active-search:select from:closest .active-search, active-search:remove from:closest .active-search"
+            hx-target="#{{ hx_id }} .active-search__search-results"
+            _="init if me.value then trigger 'search' end"
+        >
+    </div>
+    {% include './search_results.html' with search_results=None %}
+</div>

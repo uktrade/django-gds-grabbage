@@ -1,0 +1,29 @@
+.active-search__selected-objects {
+    margin-bottom: 1rem;
+}
+
+.active-search__selected-object {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.active-search__object {
+    flex: 1;
+}
+
+.active-search__search {
+    margin-bottom: 1rem;
+}
+
+.active-search__search input {
+    width: 100%;
+}
+
+.active-search__search-results {
+    margin-bottom: 1rem;
+}
+
+.active-search__search-result {
+    display: flex;
+    margin-bottom: 0.5rem;
+}

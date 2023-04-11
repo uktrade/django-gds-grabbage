@@ -12,3 +12,6 @@ serve-docs:
 
 generate-components:
 	poetry run python scripts/generate_components.py
+
+example-project:
+	poetry run python example_project/manage.py runserver
