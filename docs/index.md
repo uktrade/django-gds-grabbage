@@ -16,6 +16,6 @@ A collection of things ready to be grabbed.
 This package is a collection of Django components that are ready to be grabbed and used in your project. It includes things like:
 
 - GDS components
-  - Template rendereable python objects
+  - Template renderable python objects
   - Template tags
 - etc.
