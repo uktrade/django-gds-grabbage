@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     "crispy_forms_gds",
     "django_gds_grabbage",
     "django_gds_grabbage.django.core",
+    "django_gds_grabbage.active_search",
     "example",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -133,13 +133,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
-
 STATICFILES_DIRS = [
     BASE_DIR / "static/",
     BASE_DIR / "node_modules/",
@@ -148,6 +141,3 @@ STATICFILES_DIRS = [
 # Crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["gds"]
 CRISPY_TEMPLATE_PACK = "gds"
-
-# Gov Notify
-GOVUK_NOTIFY_API_KEY = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

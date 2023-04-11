@@ -20,6 +20,8 @@ from example_project.example.views import (
     UserListingView,
     component_view,
     components_view,
+    active_search_view,
+    MyActiveSearchView,
 )
 
 urlpatterns = [
@@ -31,4 +33,6 @@ urlpatterns = [
         component_view,
         name="component",
     ),
+    path("active-search/", active_search_view, name="active-search"),
+    path("search/", MyActiveSearchView.as_view(), name="search"),
 ]
