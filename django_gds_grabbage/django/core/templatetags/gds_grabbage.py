@@ -5,13 +5,33 @@ from django.core.paginator import Page
 from django.template.base import Node, Parser, Token
 
 from django_gds_grabbage.django.core.govuk_frontend.accordion import GovUKAccordion
-from django_gds_grabbage.django.core.govuk_frontend.base import AccordionItem
+from django_gds_grabbage.django.core.govuk_frontend.base import (
+    AccordionItem,
+    GovUKComponent,
+    PaginationPrevNext,
+)
 from django_gds_grabbage.django.core.govuk_frontend.pagination import (
     GovUKPagination,
     PaginationItems,
 )
 
 register = template.Library()
+
+
+@register.simple_tag
+def gds_component(jinja2_template: str, macro_name: str, **kwargs):
+    """Fallback template tag for rendering a GovUK component.
+
+    Args:
+        jinja2_template (str): The path to the Jinja2 template.
+        macro_name (str): The name of the macro to render.
+        **kwargs: The keyword arguments to pass to the macro.
+    """
+
+    component = GovUKComponent()
+    component._jinja2_template = jinja2_template
+    component._macro_name = macro_name
+    return component.render(component_data={**kwargs})
 
 
 @register.simple_tag
@@ -47,21 +67,21 @@ def gds_pagination(page_obj: Page):
         ```
     """
 
-    previous: Optional[Any] = None
-    next: Optional[Any] = None
+    previous: Optional[PaginationPrevNext] = None
+    next: Optional[PaginationPrevNext] = None
     pagination_items: List[PaginationItems] = []
 
     if page_obj.has_previous():
-        previous = {
-            "href": f"?page={page_obj.previous_page_number()}",
-            "labelText": "Previous",
-        }
+        previous = PaginationPrevNext(
+            href=f"?page={page_obj.previous_page_number()}",
+            labelText="Previous",
+        )
 
     if page_obj.has_next():
-        next = {
-            "href": f"?page={page_obj.next_page_number()}",
-            "labelText": "Next",
-        }
+        next = PaginationPrevNext(
+            href=f"?page={page_obj.next_page_number()}",
+            labelText="Next",
+        )
 
     for page_number in page_obj.paginator.get_elided_page_range(
         page_obj.number, on_each_side=2, on_ends=1

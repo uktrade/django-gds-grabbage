@@ -14,6 +14,7 @@ from jinja2 import (
 Attributes = Dict[str, Any]
 
 
+@dataclass(kw_only=True)
 class GovUKComponent(RenderableMixin):
     classes: Optional[str] = None
     attributes: Optional[Attributes] = None
@@ -35,7 +36,13 @@ class GovUKComponent(RenderableMixin):
             ]
         )
 
-    def render(self, template_name=None, context=None, renderer=None):
+    def render(
+        self,
+        template_name=None,
+        context=None,
+        renderer=None,
+        component_data=None,
+    ):
         jinja_loader = ChoiceLoader(
             [
                 PrefixLoader(
@@ -48,13 +55,19 @@ class GovUKComponent(RenderableMixin):
             autoescape=select_autoescape(),
         )
         template = env.from_string(self.build_jinja_template())
-        return mark_safe(template.render(data=self.__dict__))
+
+        data = self.__dict__
+        if component_data:
+            data.update(component_data)
+
+        return mark_safe(template.render(data=data))
 
     __str__ = render
     __html__ = render
 
 
-class FieldsetLegend(TypedDict):
+@dataclass(kw_only=True)
+class FieldsetLegend:
     text: str
     isPageHeading: bool
     classes: str
@@ -89,8 +102,20 @@ Checkboxes
 """
 
 
-class CheckboxesConditional(TypedDict):
+@dataclass(kw_only=True)
+class CheckboxesConditional:
     html: str
+
+
+"""
+Pagination
+"""
+
+
+@dataclass(kw_only=True)
+class PaginationPrevNext:
+    href: str
+    labelText: Optional[str] = None
 
 
 """
@@ -105,7 +130,7 @@ class SummaryListRowsActionsItem:
     html: Optional[str]
     visuallyHiddenText: Optional[str] = None
     classes: Optional[str] = None
-    attributes: Optional[Dict[str, Any]] = None
+    attributes: Optional[Attributes] = None
 
 
 @dataclass(kw_only=True)
