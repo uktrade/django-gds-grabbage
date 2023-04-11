@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_forms_gds",
+    # "crispy_forms",
+    # "crispy_forms_gds",
     "django_gds_grabbage",
-    "django_gds_grabbage.django.core",
     "django_gds_grabbage.active_search",
+    "django_gds_grabbage.gds_components",
     "example",
 ]
 

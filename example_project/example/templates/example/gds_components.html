@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load gds_grabbage %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">Template tags for GDS components</h1>
+
+    {% gds_accordion id="accordion-1" %}
+        {% gds_accordion_item heading="Accordion" summary="The accordion component" %}
+            <p class="govuk-body">This is an accordion!</p>
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Back link" summary="The back link component" %}
+            {% gds_component "back-link" href="/" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Breadcrumbs" summary="The breadcrumbs component" %}
+            {% gds_breadcrumbs items=breadcrumb_items %}
+            <p class="govuk-body">OR</p>
+            {% gds_breadcrumbs %}
+                {% gds_breadcrumb_item text="Item 1" href="/" %}
+                {% gds_breadcrumb_item text="Item 2" href="/" %}
+                {% gds_breadcrumb_item text="Item 3" href="/" %}
+                {% gds_breadcrumb_item text="Item 4" href="/" %}
+            {% end_gds_breadcrumbs %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Button" summary="The button component" %}
+            {% gds_component "button" text="Save me" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
+            {% set email_html %}
+                <div>Conditional email content</div>
+            {% endset %}
+            {% set email_phone %}
+                <div>Conditional phone content</div>
+            {% endset %}
+            {% set email_text %}
+                <div>Conditional text content</div>
+            {% endset %}
+            {% gds_checkboxes field=form.contact %}
+                {% gds_checkbox_conditional value="email" content=email_html %}
+                {% gds_checkbox_conditional value="phone" content=email_phone %}
+                {% gds_checkbox_conditional value="text" content=email_text %}
+            {% end_gds_checkboxes %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Details" summary="The details component" %}
+            {% gds_component "details" summaryText="Click me to see some hidden text" text="Some hidden text" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Error message" summary="The error message component" %}
+            {% gds_component "error-message" text="An error message" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Hint" summary="The hint component" %}
+            {% gds_component "hint" text="Some hint text" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Inset text" summary="The inset text component" %}
+            {% gds_component "inset-text" text="Some inset text" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Label" summary="The label component" %}
+            {% gds_component "label" text="A label" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Notification banner" summary="The notification banner component" %}
+            {% gds_component "notification-banner" text="Notification banner" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Pagination" summary="The pagination component" %}
+            {% gds_pagination page_obj %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Panel" summary="The banner component" %}
+            {% gds_component "panel" titleText="Panel title" text="Panel content" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
+            <p class="govuk-body">The skip link is a hidden component</p>
+            {% gds_component "skip-link" text="Skip to main content" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Tag" summary="The tag component" %}
+            {% gds_component "tag" text="Tag content" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Warning text" summary="The warning text component" %}
+            {% gds_component "warning-text" text="This is a warning" %}
+        {% end_gds_accordion_item %}
+    {% end_gds_accordion %}
+
+
+    {% comment %} TO FIX: {% endcomment %}
+    {% comment %} {% gds_component "cookie-banner" %} {% endcomment %}
+    {% comment %} {% gds_component "error-summary" %} {% endcomment %}
+    {% comment %} {% gds_component "footer" %} {% endcomment %}
+    {% comment %} {% gds_component "header" %} {% endcomment %}
+    {% comment %} {% gds_component "phase-banner" %} {% endcomment %}
+    {% comment %} {% gds_component "summary-list" %} {% endcomment %}
+    {% comment %} {% gds_component "table" %} {% endcomment %}
+    {% comment %} {% gds_component "tabs" %} {% endcomment %}
+
+    {% comment %} FIELDS: {% endcomment %}
+    {% comment %} {% gds_component "character-count" %} {% endcomment %}
+    {% comment %} {% gds_component "date-input" %} {% endcomment %}
+    {% comment %} {% gds_component "fieldset" %} {% endcomment %}
+    {% comment %} {% gds_component "file-upload" %} {% endcomment %}
+    {% comment %} {% gds_component "input" %} {% endcomment %}
+    {% comment %} {% gds_component "radios" %} {% endcomment %}
+    {% comment %} {% gds_component "select" %} {% endcomment %}
+    {% comment %} {% gds_component "textarea" %} {% endcomment %}
+
+{% endblock %}

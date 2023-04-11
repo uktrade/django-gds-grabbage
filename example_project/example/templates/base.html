@@ -1,4 +1,4 @@
-{% load static %}
+{% load static gds_grabbage %}
 <!DOCTYPE html>
 <html lang="en" class="govuk-template app-html-class">
     <head>
@@ -34,13 +34,10 @@
         <script>
             document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
         </script>
-        <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+        {% gds_component "skip-link" text="Skip to main content" href="#main-content" %}
         <div class="{% block container_class_names %}govuk-width-container{% endblock container_class_names %}">
-            <main class="{% block main_class_names %}govuk-main-wrapper{% endblock main_class_names %}"
-                  id="main-content"
-                  role="main">
-                {% block content %}
-                {% endblock content %}
+            <main class="{% block main_class_names %}govuk-main-wrapper{% endblock main_class_names %}" id="main-content"role="main">
+                {% block content %}{% endblock content %}
             </main>
         </div>
         <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>

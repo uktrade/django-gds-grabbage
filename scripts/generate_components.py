@@ -1,17 +1,23 @@
+import os
 from typing import Any, Dict, List, TypedDict
 
+import govuk_frontend_jinja
 import requests
 
+from django_gds_grabbage.gds_components import govuk_frontend
+
+jinja_path = govuk_frontend_jinja.__path__[0]
+govuk_frontend_path = govuk_frontend.__path__[0]
 # Code to generate GovUK Design System components
 
 new_component_python = """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, List
 
-from django_gds_grabbage.django.core.govuk_frontend import base as govuk_frontend_base
-from django_gds_grabbage.django.core.govuk_frontend import error_message as govuk_frontend_error_message
-from django_gds_grabbage.django.core.govuk_frontend import hint as govuk_frontend_hint
-from django_gds_grabbage.django.core.govuk_frontend import fieldset as govuk_frontend_fieldset
+from django_gds_grabbage.gds_components.govuk_frontend import base as govuk_frontend_base
+from django_gds_grabbage.gds_components.govuk_frontend import error_message as govuk_frontend_error_message
+from django_gds_grabbage.gds_components.govuk_frontend import hint as govuk_frontend_hint
+from django_gds_grabbage.gds_components.govuk_frontend import fieldset as govuk_frontend_fieldset
 
 """
 
@@ -34,6 +40,8 @@ class {COMPONENT_DATACLASS_PREFIX}{component_class_name}(govuk_frontend_base.Gov
     _jinja2_template = "govuk_frontend_jinja/components/{component_hyphenated}/macro.html"
     _macro_name = "govuk{component_class_name}"
 
+
+COMPONENT = {COMPONENT_DATACLASS_PREFIX}{component_class_name}
 '''
 
 COMPONENT_DATACLASS_PREFIX = "GovUK"
@@ -70,6 +78,14 @@ DATACLASS_TYPE_MAPPING = {
     "CheckboxesItems": {
         "conditional": "govuk_frontend_base.CheckboxesConditional",
         "conditional.html": IGNORE,
+    },
+    "Details": {
+        "summaryText": "Optional[str] = None",
+        "summaryHtml": "Optional[str] = None",
+    },
+    "Panel": {
+        "titleText": "Optional[str] = None",
+        "titleHtml": "Optional[str] = None",
     },
 }
 
@@ -127,15 +143,21 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
         has_text_and_html: bool = "text" in param_list and "html" in param_list
 
         for component_param in component_params:
+            dataclass_field = False
+            dataclass_type = ""
+            dataclass_value = ""
+
             if component_param["type"] == "nunjucks-block":
                 continue
             if component_param["name"] in ["attributes", "classes"] and is_base:
                 continue
             if component_param["name"] in ["text", "html"] and has_text_and_html:
                 component_param["required"] = False
+            if component_param["name"] == "for":
+                dataclass_field = True
 
-            dataclass_type = ""
             if not component_param["required"]:
+                dataclass_value = "None"
                 dataclass_type += "Optional["
 
             mapped_type = TYPE_MAPPING.get(component_param["type"], "Any")
@@ -178,8 +200,20 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
                 dataclass_type += f"[{sub_dataclass_name}]"
 
             if not component_param["required"]:
-                dataclass_type += "] = None"
-            dataclasses[dataclass_name][component_param["name"]] = dataclass_type
+                dataclass_type += "]"
+
+            if dataclass_field:
+                old_name = component_param["name"]
+                component_param["name"] = "_" + old_name
+                dataclass_value = (
+                    'field(default=None, metadata={"name": "' + old_name + '"})'
+                )
+
+            type_and_value = dataclass_type
+            if dataclass_value:
+                type_and_value += f" = {dataclass_value}"
+
+            dataclasses[dataclass_name][component_param["name"]] = type_and_value
 
     build_dataclass(
         dataclass_name=dataclass_name,
@@ -197,9 +231,7 @@ def build_component(component_hyphenated: str):
     """
 
     component_underscored = component_hyphenated.replace("-", "_")
-    filename = (
-        f"django_gds_grabbage/django/core/govuk_frontend/{component_underscored}.py"
-    )
+    filename = govuk_frontend_path + f"/{component_underscored}.py"
 
     # Check if file already exists. If it does, don't overwrite it.
     if os.path.exists(filename):
@@ -266,11 +298,6 @@ def build_component(component_hyphenated: str):
 # Loop over directories in "govuk_frontend_jinja/components/" where "govuk_frontend_jinja" is a python package
 # and generate Python code for each component
 
-import os
-
-import govuk_frontend_jinja
-
-jinja_path = govuk_frontend_jinja.__path__[0]
 
 for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
     build_component(component_hyphenated)

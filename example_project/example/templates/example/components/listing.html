@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <ul class="govuk-list">
-        {% for component in component_list %}
-            <li><a class="govuk-link" href="{{ component }}/">{{ component }}</a></li>
-        {% endfor %}
-    </ul>
-{% endblock content %}

@@ -16,25 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from example_project.example.views.views import (
-    UserListingView,
-    component_view,
-    components_view,
-)
 from example_project.example.views.active_search import (
     MyActiveSearchView,
     active_search_view,
+)
+from example_project.example.views.gds_components import (
+    UserListingView,
+    gds_components_view,
 )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", UserListingView.as_view(), name="user-listing"),
-    path("components/", components_view, name="components"),
-    path(
-        "components/<str:component_hyphenated_name>/",
-        component_view,
-        name="component",
-    ),
+    path("components/", gds_components_view, name="components"),
     path("active-search/", active_search_view, name="active-search"),
     path("search/", MyActiveSearchView.as_view(), name="search"),
 ]
