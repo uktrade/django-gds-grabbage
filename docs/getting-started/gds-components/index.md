@@ -5,3 +5,13 @@ The `django_gds_grabbage.gds_components` package contains django functionality t
 The main part of this package is the [template tags](./template-tags/index.md) that it offers for use in your templates. These template tags will reduce the amount of markup that you need to maintain in your project.
 
 This package also contains some helpful [templates](./templates/index.md) for your project, such as the `gds_grabbage/base.html` template which contains the basic structure of a GovUK website.
+
+## Installation
+
+In your settings file, add the app to your `INSTALLED_APPS`:
+```python
+INSTALLED_APPS = [
+    ...
+    "django_gds_grabbage.gds_components",
+]
+```

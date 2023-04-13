@@ -8,11 +8,23 @@ This project uses the [GOV.UK Frontend Jinja Macros](https://github.com/LandRegi
 
 ## Adding/updating components
 
-To generate any new components, run the following commands:
+To clear the generated components run the following command:
+
+```bash
+make clear-generated-components
+```
+
+To generate components run the following command:
+
+```bash
+make generate-components
+```
+
+Note that the generate-componets command will skip over any components that already exist.
+
+If there are new Jinja templates available, update `govuk_frontend_jinja` and run the `generate-components` command again.
 
 ```bash
 poetry update govuk_frontend_jinja
-poetry run python ./scripts/generate_components.py
+make generate-components
 ```
-
-This will let you know of any new components that need adding to the project.

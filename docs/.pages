@@ -1,5 +1,5 @@
 nav:
   - About: index.md
-  - Getting started: getting-started.md
+  - Getting started: getting-started
   - Contributing: contributing
-  - GDS Components: gds-components
+  - ...
