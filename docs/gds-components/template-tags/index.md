@@ -31,6 +31,7 @@ Some of the components aren't a simple flat mapping, for these we implement cust
 - [Accordion](./accordion.md)
 - [Breadcrumbs](./breadcrumbs.md)
 - [Pagination](./pagination.md)
+- [Tabs](./tabs.md)
 
 ## Currently unsupported components
 
@@ -38,6 +39,7 @@ The following components are not yet supported:
 
 - Fields
     - [Character count](https://design-system.service.gov.uk/components/character-count/)
+    - [Checkboxes](https://design-system.service.gov.uk/components/checkboxes/)
     - [Date input](https://design-system.service.gov.uk/components/date-input/)
     - [Fieldset](https://design-system.service.gov.uk/components/fieldset/)
     - [File upload](https://design-system.service.gov.uk/components/file-upload/)
@@ -53,4 +55,3 @@ The following components are not yet supported:
     - [Phase banner](https://design-system.service.gov.uk/components/phase-banner/)
     - [Summary list](https://design-system.service.gov.uk/components/summary-list/)
     - [Table](https://design-system.service.gov.uk/components/table/)
-    - [Tabs](https://design-system.service.gov.uk/components/tabs/)
