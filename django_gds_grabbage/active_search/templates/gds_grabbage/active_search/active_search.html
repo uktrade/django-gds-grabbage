@@ -5,9 +5,9 @@
             type="search"
             name="query"
             hx-get="{% url view_name %}?hx_action=search"
-            hx-trigger="keyup changed delay:500ms, search, active-search:select from:closest .active-search, active-search:remove from:closest .active-search"
+            hx-trigger="keyup changed delay:500ms, search, active-search:change from:closest .active-search"
             hx-target="#{{ hx_id }} .active-search__search-results"
-            _="init if me.value then trigger 'search' end"
+            _="init if me.value then trigger 'search'"
         >
     </div>
     {% include './search_results.html' with search_results=None %}

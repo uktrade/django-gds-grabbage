@@ -1,5 +1,6 @@
-<div class="active-search__selected-object" _="on 'active-search:remove' remove me">
+<div class="active-search__selected-object" _="on 'active-search:change' remove me">
     {% include './object.html' %}
     <input type="hidden" name="{{ hx_name }}" value="{{ object.pk }}">
-    <button type="button" _="on click trigger 'active-search:remove'">Remove</button>
+    <button type="button" _="on click trigger 'active-search:change'">Remove
+</button>
 </div>

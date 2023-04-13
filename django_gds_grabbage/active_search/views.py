@@ -1,3 +1,5 @@
+import json
+
 from django.template.response import TemplateResponse
 from django.views import View
 from django.views.generic.base import ContextMixin
@@ -39,7 +41,7 @@ class ActiveSearchView(ContextMixin, View):
             context={
                 "object": obj,
             },
-            trigger="active-search:select",
+            trigger="active-search:change",
         )
 
     def setup(self, request, *args, **kwargs):
@@ -70,6 +72,15 @@ class ActiveSearchView(ContextMixin, View):
             context = {}
 
         headers = {}
+
+        if isinstance(trigger, str):
+            trigger = trigger
+
+        if isinstance(trigger, list):
+            trigger = {name: "" for name in trigger}
+
+        if isinstance(trigger, dict):
+            trigger = json.dumps(trigger)
 
         if trigger:
             headers["HX-Trigger-After-Settle"] = trigger

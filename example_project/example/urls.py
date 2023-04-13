@@ -16,12 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from example_project.example.views import (
+from example_project.example.views.views import (
     UserListingView,
     component_view,
     components_view,
-    active_search_view,
+)
+from example_project.example.views.active_search import (
     MyActiveSearchView,
+    active_search_view,
 )
 
 urlpatterns = [

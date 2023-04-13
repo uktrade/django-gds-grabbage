@@ -3,7 +3,6 @@
 
 {% block content %}
 <script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/htmx.org/dist/ext/debug.js"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
 <style>
     form {
@@ -14,17 +13,18 @@
 </style>
 <form id="form">
     <link rel="stylesheet" href="{% static 'gds_grabbage/active_search/active_search.css' %}">
-    {% include 'gds_grabbage/active_search/active_search.html' with hx_id="search" hx_name="fruits" view_name="search" %}
+    {% include 'gds_grabbage/active_search/active_search.html' with hx_id="fruits" hx_name="fruits" view_name="search" %}
+    <pre id="fruits-output"></pre>
 </form>
-
 <script>
-const form = document.getElementById("form");
+const form = document.querySelector("#form");
+const fruitsOutput = document.querySelector("#fruits-output");
 
-for (const event of ["select", "remove"]) {
-    document.getElementById("form").addEventListener(event, () => {
-        const formData = new FormData(form);
-        console.log(formData.getAll("fruits"))
-    });
+const updateFruitsOutput = () => {
+    const formData = new FormData(form);
+    fruitsOutput.innerHTML = JSON.stringify(formData.getAll("fruits"));
 }
+updateFruitsOutput();
+form.addEventListener("active-search:change", updateFruitsOutput);
 </script>
 {% endblock content %}
