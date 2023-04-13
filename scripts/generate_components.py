@@ -87,6 +87,9 @@ DATACLASS_TYPE_MAPPING = {
         "titleText": "Optional[str] = None",
         "titleHtml": "Optional[str] = None",
     },
+    "TabsItems": {
+        "panel": "govuk_frontend_base.TextAndHtml",
+    },
 }
 
 

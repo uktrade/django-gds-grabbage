@@ -20,7 +20,7 @@ class TabsItems:
     id: str
     label: str
     attributes: Optional[Dict[str, Any]] = None
-    panel: Dict[str, Any]
+    panel: govuk_frontend_base.TextAndHtml
 
 
 @dataclass(kw_only=True)

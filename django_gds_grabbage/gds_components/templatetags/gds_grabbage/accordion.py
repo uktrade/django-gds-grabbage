@@ -46,10 +46,6 @@ class AccordionItemNode(DataclassNode):
 def gds_accordion(parser: Parser, token: Token):
     """GDS accordion template tag.
 
-    Args:
-        parser (Parser)
-        token (Token)
-
     Usage:
         template.html:
         ```django

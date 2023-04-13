@@ -81,10 +81,6 @@ class CheckboxConditionalNode(DataclassNode):
 def gds_checkboxes(parser: Parser, token: Token):
     """GDS checkboxes template tag.
 
-    Args:
-        parser (Parser)
-        token (Token)
-
     Usage:
         template.html:
         ```django
