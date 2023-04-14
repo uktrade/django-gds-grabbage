@@ -57,3 +57,5 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - tables
+
+dev_addr: "127.0.0.1:8001"

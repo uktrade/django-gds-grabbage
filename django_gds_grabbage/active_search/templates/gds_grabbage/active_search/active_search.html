@@ -4,6 +4,8 @@
         <input
             type="search"
             name="query"
+            class="govuk-input"
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
             hx-get="{% url view_name %}?hx_action=search"
             hx-trigger="keyup changed delay:500ms, search, active-search:change from:closest .active-search"
             hx-target="#{{ hx_id }} .active-search__search-results"

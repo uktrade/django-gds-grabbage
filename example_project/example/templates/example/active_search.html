@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static active_search %}
 
 {% block content %}
 <script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
@@ -13,18 +13,25 @@
 </style>
 <form id="form">
     <link rel="stylesheet" href="{% static 'gds_grabbage/active_search/active_search.css' %}">
-    {% include 'gds_grabbage/active_search/active_search.html' with hx_id="fruits" hx_name="fruits" view_name="search" %}
-    <pre id="fruits-output"></pre>
+
+    <!-- Using the templatetag directly with data -->
+    {% active_search hx_id="users" hx_name="users" view_name="search-users" selected_objects=users %}
+    <pre id="users-output"></pre>
+
+    <hr>
+
+    <!-- Using it through a form field -->
+    {{ example_form.users }}
 </form>
 <script>
 const form = document.querySelector("#form");
-const fruitsOutput = document.querySelector("#fruits-output");
+const usersOutput = document.querySelector("#users-output");
 
-const updateFruitsOutput = () => {
+const updateUsersOutput = () => {
     const formData = new FormData(form);
-    fruitsOutput.innerHTML = JSON.stringify(formData.getAll("fruits"));
+    usersOutput.innerHTML = JSON.stringify(formData.getAll("users"));
 }
-updateFruitsOutput();
-form.addEventListener("active-search:change", updateFruitsOutput);
+updateUsersOutput();
+form.addEventListener("active-search:change", updateUsersOutput);
 </script>
 {% endblock content %}

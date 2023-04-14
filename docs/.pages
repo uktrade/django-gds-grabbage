@@ -1,5 +1,5 @@
 nav:
   - About: index.md
-  - Getting started: getting-started
+  - Modules: modules
   - Contributing: contributing
   - ...
