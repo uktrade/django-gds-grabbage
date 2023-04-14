@@ -14,8 +14,8 @@
         {% gds_accordion_item heading="Breadcrumbs" summary="The breadcrumbs component" %}
             {% gds_breadcrumbs items=breadcrumb_items %}
             <p class="govuk-body">OR</p>
-            {% set breadcrumb_item_4 %}Item 4{% endset %}
             {% gds_breadcrumbs %}
+                {% set breadcrumb_item_4 %}Item 4{% endset %}
                 {% gds_breadcrumb_item text="Item 1" href="/" %}
                 {% gds_breadcrumb_item text="Item 2" href="/" %}
                 {% gds_breadcrumb_item text="Item 3" href="/" %}
@@ -62,9 +62,6 @@
             {% gds_component "error-message" text="An error message" %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Error summary" summary="The error summary component" %}
-            {% set error_summary_title_1 %}
-                Test
-            {% endset %}
             {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
                 {% gds_error_summary_error_list_item href="/" text="Error item 1" %}
                 {% gds_error_summary_error_list_item href="/" %}
