@@ -2,8 +2,9 @@
     {% include './object.html' %}
     <button
         type="button"
+        class="govuk-button"
         hx-get="{% url view_name %}?hx_action=select&id={{ object.pk }}"
         hx-target="#{{ hx_id }} .active-search__selected-objects"
         hx-swap="beforeend"
-    >Select</button>
+    >Add</button>
 </div>

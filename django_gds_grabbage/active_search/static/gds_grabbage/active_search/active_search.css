@@ -2,7 +2,11 @@
     margin-bottom: 1rem;
 }
 
-.active-search__selected-object {
+.active-search__search-results {
+    margin-bottom: 1rem;
+}
+
+.active-search__selected-object, .active-search__search-result {
     display: flex;
     margin-bottom: 0.5rem;
 }
@@ -19,11 +23,7 @@
     width: 100%;
 }
 
-.active-search__search-results {
-    margin-bottom: 1rem;
-}
-
-.active-search__search-result {
-    display: flex;
-    margin-bottom: 0.5rem;
+/* GDS overrides */
+.active-search .govuk-body, .active-search .govuk-button {
+    margin-bottom: 0 !important;
 }

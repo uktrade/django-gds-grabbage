@@ -1,37 +1,40 @@
 from django.shortcuts import render
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+from django import forms
 
 from django_gds_grabbage.active_search.views import ActiveSearchView
 
 
-TEST_DATA = [
-    {"pk": 1, "name": "Apple"},
-    {"pk": 2, "name": "Banana"},
-    {"pk": 3, "name": "Pear"},
-    {"pk": 4, "name": "Kiwi"},
-    {"pk": 5, "name": "Grape"},
-]
+User = get_user_model()
 
 
-class MyActiveSearchView(ActiveSearchView):
+class UserActiveSearchView(ActiveSearchView):
     def search(self, query):
         if not query:
             return []
 
-        return [
-            x
-            for x in TEST_DATA
-            if query.lower() in x["name"].lower() and x["pk"] not in self.selected_pks
-        ]
+        return User.objects.filter(
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        ).exclude(pk__in=self.selected_pks)
 
     def get_object(self, id):
-        for x in TEST_DATA:
-            if x["pk"] == id:
-                return x
+        return User.objects.get(pk=id)
+
+
+class ExampleForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(queryset=User.objects.all())
 
 
 def active_search_view(request):
-    selected = TEST_DATA[2]
+    users = User.objects.all()[:1]
+    example_form = ExampleForm(data={"users": users})
 
     return render(
-        request, "example/active_search.html", {"selected_objects": [selected]}
+        request,
+        "example/active_search.html",
+        {
+            "users": users,
+            "example_form": example_form,
+        },
     )

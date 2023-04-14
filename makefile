@@ -19,5 +19,9 @@ generate-components:
 clear-generated-components:
 	find django_gds_grabbage/gds_components/govuk_frontend ! -name '__init__.py' ! -name 'base.py' -type f -exec rm -rf {} +
 
-example-project:
+init-example-project:
+	poetry run python example_project/manage.py migrate
+	poetry run python example_project/manage.py loaddata test_users.json
+
+run-example-project:
 	poetry run python example_project/manage.py runserver

@@ -62,9 +62,9 @@ class ActiveSearchView(ContextMixin, View):
         context = super().get_context_data(**kwargs)
 
         return context | {
-            "view_name": self.request.resolver_match.view_name,
             "hx_id": self.hx_id,
             "hx_name": self.hx_name,
+            "view_name": self.request.resolver_match.view_name,
         }
 
     def render_response(self, template, context=None, trigger=None):
