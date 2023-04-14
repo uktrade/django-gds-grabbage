@@ -1,12 +1,9 @@
 from typing import List
 
 from django import template
-from django.template.base import Node, Parser, Token, token_kwargs
+from django.template.base import Parser, Token, token_kwargs
 
-from django_gds_grabbage.gds_components.govuk_frontend.base import (
-    AccordionItem,
-    TextAndHtml,
-)
+from django_gds_grabbage.gds_components.govuk_frontend.base import TextAndHtml
 from django_gds_grabbage.gds_components.govuk_frontend.tabs import TabsItems
 from django_gds_grabbage.gds_components.templatetags.gds_grabbage import (
     DataclassNode,
@@ -48,6 +45,17 @@ def gds_tabs(parser: Parser, token: Token):
         ```django
         {% load gds_grabbage %}
         ...
+        {% gds_tabs id="tabs-1" title="Tab title" %}
+            {% gds_tabs_tab id="tab-1" label="Tab 1" %}
+                <strong>Test 1</strong>
+            {% end_gds_tabs_tab %}
+            {% gds_tabs_tab id="tab-2" label="Tab 2" %}
+                <strong>Test 2</strong>
+            {% end_gds_tabs_tab %}
+            {% gds_tabs_tab id="tab-3" label="Tab 3" %}
+                <strong>Test 3</strong>
+            {% end_gds_tabs_tab %}
+        {% end_gds_tabs %}
         ```
     """
 
