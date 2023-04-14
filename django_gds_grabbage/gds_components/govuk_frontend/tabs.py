@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,13 +13,17 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
 class TabsItems:
     id: str
-    label: str
-    attributes: Optional[Dict[str, Any]] = None
+    label: govuk_frontend_label.GovUKLabel
+    attributes: Optional[govuk_frontend_base.Attributes] = None
     panel: govuk_frontend_base.TextAndHtml
 
 

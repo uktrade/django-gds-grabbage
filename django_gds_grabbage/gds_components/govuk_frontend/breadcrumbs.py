@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,6 +13,10 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
@@ -20,7 +24,7 @@ class BreadcrumbsItems:
     text: Optional[str] = None
     html: Optional[str] = None
     href: Optional[str] = None
-    attributes: Optional[Dict[str, Any]] = None
+    attributes: Optional[govuk_frontend_base.Attributes] = None
 
 
 @dataclass(kw_only=True)

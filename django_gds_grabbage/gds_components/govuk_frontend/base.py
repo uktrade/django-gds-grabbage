@@ -108,17 +108,6 @@ class CheckboxesConditional:
 
 
 """
-Pagination
-"""
-
-
-@dataclass(kw_only=True)
-class PaginationPrevNext:
-    href: str
-    labelText: Optional[str] = None
-
-
-"""
 Summary List
 """
 

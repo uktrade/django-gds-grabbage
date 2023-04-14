@@ -2,7 +2,6 @@ from typing import Dict
 
 from django import template
 from django.forms import BoundField
-from django.template.base import Node, Parser, Token, token_kwargs
 
 from django_gds_grabbage.gds_components.govuk_frontend.base import CheckboxesConditional
 from django_gds_grabbage.gds_components.govuk_frontend.checkboxes import (
@@ -10,8 +9,8 @@ from django_gds_grabbage.gds_components.govuk_frontend.checkboxes import (
     GovUKCheckboxes,
 )
 from django_gds_grabbage.gds_components.templatetags.gds_grabbage import (
-    DataclassNode,
     GovUKComponentNode,
+    gds_register_tag,
 )
 
 register = template.Library()
@@ -37,6 +36,8 @@ class FieldNode(GovUKComponentNode):
 
 
 class CheckboxesNode(FieldNode):
+    dataclass_cls = GovUKCheckboxes
+
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
@@ -63,57 +64,31 @@ class CheckboxesNode(FieldNode):
         return component_kwargs
 
 
-class CheckboxConditionalNode(DataclassNode):
+gds_register_tag(
+    library=register,
+    name="gds_checkboxes",
+    node_cls=CheckboxesNode,
+)
+
+
+class CheckboxConditionalNode(GovUKComponentNode):
     dataclass_cls = CheckboxesConditional
 
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["html"] = self.resolved_kwargs["content"]
+        rendered_contents = self.nodelist.render(context).strip()
+        if rendered_contents and "html" not in component_kwargs:
+            component_kwargs["html"] = rendered_contents
 
         del component_kwargs["value"]
-        del component_kwargs["content"]
 
         return component_kwargs
 
 
-@register.tag
-def gds_checkboxes(parser: Parser, token: Token):
-    """GDS checkboxes template tag.
-
-    Usage:
-        template.html:
-        ```django
-        {% load gds_grabbage %}
-        {% gds_checkboxes form.field %}
-            {% gds_checkbox_conditional "value" %}
-                <div>Conditional content</div>
-            {% end_gds_checkbox_conditional %}
-        {% end_gds_checkboxes %}
-        ```
-    """
-
-    nodelist = parser.parse(("end_gds_checkboxes",))
-    parser.delete_first_token()
-
-    bits = token.split_contents()
-    remaining_bits = bits[1:]
-    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
-
-    return CheckboxesNode(
-        extra_context=extra_context,
-        component_name="checkboxes",
-        nodelist=nodelist,
-    )
-
-
-@register.tag
-def gds_checkbox_conditional(parser: Parser, token: Token):
-    """GDS checkbox conditional template tag."""
-    bits = token.split_contents()
-    remaining_bits = bits[1:]
-    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
-
-    return CheckboxConditionalNode(
-        extra_context=extra_context,
-    )
+gds_register_tag(
+    library=register,
+    name="gds_checkbox_conditional",
+    node_cls=CheckboxConditionalNode,
+    end_if_not_contains=["html"],
+)

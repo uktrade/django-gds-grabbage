@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,6 +13,10 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
@@ -27,7 +31,7 @@ class GovUKFileUpload(govuk_frontend_base.GovUKComponent):
     value: Optional[str] = None
     disabled: Optional[bool] = None
     describedBy: Optional[str] = None
-    label: Dict[str, Any]
+    label: govuk_frontend_label.GovUKLabel
     hint: Optional[govuk_frontend_hint.GovUKHint] = None
     errorMessage: Optional[govuk_frontend_error_message.GovUKErrorMessage] = None
     formGroup: Optional[govuk_frontend_base.FormGroup] = None

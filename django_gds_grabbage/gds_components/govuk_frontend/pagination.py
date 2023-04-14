@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,6 +13,26 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
+
+
+@dataclass(kw_only=True)
+class PaginationNext:
+    text: Optional[str] = None
+    labelText: Optional[str] = None
+    href: str
+    attributes: Optional[govuk_frontend_base.Attributes] = None
+
+
+@dataclass(kw_only=True)
+class PaginationPrevious:
+    text: Optional[str] = None
+    labelText: Optional[str] = None
+    href: str
+    attributes: Optional[govuk_frontend_base.Attributes] = None
 
 
 @dataclass(kw_only=True)
@@ -22,7 +42,7 @@ class PaginationItems:
     href: str
     current: Optional[bool] = None
     ellipsis: Optional[bool] = None
-    attributes: Optional[Dict[str, Any]] = None
+    attributes: Optional[govuk_frontend_base.Attributes] = None
 
 
 @dataclass(kw_only=True)
@@ -33,8 +53,8 @@ class GovUKPagination(govuk_frontend_base.GovUKComponent):
     """
 
     items: Optional[List[PaginationItems]] = None
-    previous: Optional[Dict[str, Any]] = None
-    next: Optional[Dict[str, Any]] = None
+    previous: Optional[PaginationPrevious] = None
+    next: Optional[PaginationNext] = None
     landmarkLabel: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/pagination/macro.html"

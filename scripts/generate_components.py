@@ -3,6 +3,7 @@ from typing import Any, Dict, List, TypedDict
 
 import govuk_frontend_jinja
 import requests
+import yaml
 
 from django_gds_grabbage.gds_components import govuk_frontend
 
@@ -16,8 +17,10 @@ from typing import Any, Dict, Optional, List
 
 from django_gds_grabbage.gds_components.govuk_frontend import base as govuk_frontend_base
 from django_gds_grabbage.gds_components.govuk_frontend import error_message as govuk_frontend_error_message
-from django_gds_grabbage.gds_components.govuk_frontend import hint as govuk_frontend_hint
 from django_gds_grabbage.gds_components.govuk_frontend import fieldset as govuk_frontend_fieldset
+from django_gds_grabbage.gds_components.govuk_frontend import hint as govuk_frontend_hint
+from django_gds_grabbage.gds_components.govuk_frontend import label as govuk_frontend_label
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
 
 """
 
@@ -50,8 +53,6 @@ IGNORE = "_IGNORE_"
 
 TYPE_MAPPING = {
     "string": "str",
-    "object": "Dict[str, Any]",
-    "array": "List",
     "integer": "int",
     "boolean": "bool",
     "html": "str",
@@ -61,6 +62,8 @@ NAME_TYPE_MAPPING = {
     "errorMessage": "govuk_frontend_error_message.GovUKErrorMessage",
     "hint": "govuk_frontend_hint.GovUKHint",
     "fieldset": "govuk_frontend_fieldset.GovUKFieldset",
+    "attributes": "govuk_frontend_base.Attributes",
+    "label": "govuk_frontend_label.GovUKLabel",
 }
 DATACLASS_TYPE_MAPPING = {
     "Fieldset": {
@@ -83,12 +86,19 @@ DATACLASS_TYPE_MAPPING = {
         "summaryText": "Optional[str] = None",
         "summaryHtml": "Optional[str] = None",
     },
+    "ErrorSummary": {
+        "titleText": "Optional[str] = None",
+        "titleHtml": "Optional[str] = None",
+    },
     "Panel": {
         "titleText": "Optional[str] = None",
         "titleHtml": "Optional[str] = None",
     },
     "TabsItems": {
         "panel": "govuk_frontend_base.TextAndHtml",
+    },
+    "PhaseBanner": {
+        "tag": "govuk_frontend_tag.GovUKTag",
     },
 }
 
@@ -101,10 +111,6 @@ class ComponentParams(TypedDict):
 
 
 def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
-    from pprint import pprint
-
-    import yaml
-
     govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/main/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
     # Grab the YAML file
     r = requests.get(govuk_frontend_component_yml_url)
@@ -163,44 +169,54 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
                 dataclass_value = "None"
                 dataclass_type += "Optional["
 
+            HAS_BEEN_MAPPED = False
+
             mapped_type = TYPE_MAPPING.get(component_param["type"], "Any")
             if mapped_type == "Any":
                 print(f'No mapping for: {dataclass_name} {component_param["type"]}')
+            else:
+                HAS_BEEN_MAPPED = True
 
             # Fix text and html typing as only one is required, not both.
             if component_param["name"] in ["text", "html"] and has_text_and_html:
+                HAS_BEEN_MAPPED = True
                 mapped_type = "str"
 
             # Override types with the defined name mappings.
             name_type_mapping = NAME_TYPE_MAPPING.get(component_param["name"])
             if name_type_mapping:
+                HAS_BEEN_MAPPED = True
                 mapped_type = name_type_mapping
 
             # Override types with the defined dataclass mappings.
             dataclass_type_mapping = DATACLASS_TYPE_MAPPING.get(dataclass_name)
-            if (
-                dataclass_type_mapping
-                and component_param["name"] in dataclass_type_mapping
-            ):
-                mapped_type = dataclass_type_mapping[component_param["name"]]
+            if dataclass_type_mapping:
+                if component_param["name"] in dataclass_type_mapping:
+                    HAS_BEEN_MAPPED = True
+                    mapped_type = dataclass_type_mapping[component_param["name"]]
 
             if mapped_type == IGNORE:
                 continue
 
-            dataclass_type += mapped_type
-
-            if mapped_type == "List":
+            sub_params = component_param["YAML"].get("params", [])
+            if sub_params and not HAS_BEEN_MAPPED:
                 sub_dataclass_name = (
                     dataclass_name + component_param["name"].capitalize()
                 )
                 subcomponent_params = convert_yaml_params_to_component_params(
-                    yaml_params=component_param["YAML"].get("params", []),
+                    yaml_params=sub_params,
                 )
-                build_dataclass(
-                    dataclass_name=sub_dataclass_name,
-                    component_params=subcomponent_params,
-                )
-                dataclass_type += f"[{sub_dataclass_name}]"
+                if subcomponent_params:
+                    build_dataclass(
+                        dataclass_name=sub_dataclass_name,
+                        component_params=subcomponent_params,
+                    )
+                    if component_param["type"] == "array":
+                        dataclass_type += f"List[{sub_dataclass_name}]"
+                    else:
+                        dataclass_type += sub_dataclass_name
+            else:
+                dataclass_type += mapped_type
 
             if not component_param["required"]:
                 dataclass_type += "]"

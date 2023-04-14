@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,13 +13,29 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
+
+
+@dataclass(kw_only=True)
+class FooterCopyright:
+    text: Optional[str] = None
+    html: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class FooterContentlicence:
+    text: Optional[str] = None
+    html: Optional[str] = None
 
 
 @dataclass(kw_only=True)
 class FooterNavigationItems:
     text: str
     href: str
-    attributes: Optional[Dict[str, Any]] = None
+    attributes: Optional[govuk_frontend_base.Attributes] = None
 
 
 @dataclass(kw_only=True)
@@ -31,16 +47,31 @@ class FooterNavigation:
 
 
 @dataclass(kw_only=True)
+class FooterMetaItems:
+    text: str
+    href: str
+    attributes: Optional[govuk_frontend_base.Attributes] = None
+
+
+@dataclass(kw_only=True)
+class FooterMeta:
+    visuallyHiddenTitle: Optional[str] = None
+    html: Optional[str] = None
+    text: Optional[str] = None
+    items: Optional[List[FooterMetaItems]] = None
+
+
+@dataclass(kw_only=True)
 class GovUKFooter(govuk_frontend_base.GovUKComponent):
     """GovUK Footer
 
     See: https://design-system.service.gov.uk/components/footer/
     """
 
-    meta: Optional[Dict[str, Any]] = None
+    meta: Optional[FooterMeta] = None
     navigation: Optional[List[FooterNavigation]] = None
-    contentLicence: Optional[Dict[str, Any]] = None
-    copyright: Optional[Dict[str, Any]] = None
+    contentLicence: Optional[FooterContentlicence] = None
+    copyright: Optional[FooterCopyright] = None
     containerClasses: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/footer/macro.html"

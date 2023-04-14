@@ -14,11 +14,12 @@
         {% gds_accordion_item heading="Breadcrumbs" summary="The breadcrumbs component" %}
             {% gds_breadcrumbs items=breadcrumb_items %}
             <p class="govuk-body">OR</p>
+            {% set breadcrumb_item_4 %}Item 4{% endset %}
             {% gds_breadcrumbs %}
                 {% gds_breadcrumb_item text="Item 1" href="/" %}
                 {% gds_breadcrumb_item text="Item 2" href="/" %}
                 {% gds_breadcrumb_item text="Item 3" href="/" %}
-                {% gds_breadcrumb_item text="Item 4" href="/" %}
+                {% gds_breadcrumb_item href="/" html=breadcrumb_item_4 %}
             {% end_gds_breadcrumbs %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Button" summary="The button component" %}
@@ -26,25 +27,84 @@
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
             {% set email_html %}
-                <div>Conditional email content</div>
+                <p class="govuk-body">Conditional email content</p>
             {% endset %}
-            {% set email_phone %}
-                <div>Conditional phone content</div>
-            {% endset %}
-            {% set email_text %}
-                <div>Conditional text content</div>
+            {% set phone_html %}
+                <p class="govuk-body">Conditional phone content</p>
             {% endset %}
             {% gds_checkboxes field=form.contact %}
-                {% gds_checkbox_conditional value="email" content=email_html %}
-                {% gds_checkbox_conditional value="phone" content=email_phone %}
-                {% gds_checkbox_conditional value="text" content=email_text %}
+                {% gds_checkbox_conditional value="email" html=email_html %}
+                {% gds_checkbox_conditional value="phone" html=phone_html %}
+                {% gds_checkbox_conditional value="text" %}
+                    <p class="govuk-body">Conditional text content</p>
+                {% end_gds_checkbox_conditional %}
             {% end_gds_checkboxes %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Cookie banner" summary="The cookie banner component" %}
+            {% set message_3_html %}
+                <p class="govuk-body">Message 3 content</p>
+            {% endset %}
+            {% gds_cookie_banner %}
+                {% gds_cookie_banner_message headingText="Message 1 heading" %}
+                    <p class="govuk-body">Message 1 content</p>
+                    {% gds_cookie_banner_message_action text="Action 1" %}
+                    {% gds_cookie_banner_message_action text="Action 2" %}
+                {% end_gds_cookie_banner_message %}
+
+                {% gds_cookie_banner_message headingText="Message 2 heading" text="Message 2 content" %}
+                {% gds_cookie_banner_message headingText="Message 3 heading" html=message_3_html %}
+            {% end_gds_cookie_banner %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Details" summary="The details component" %}
             {% gds_component "details" summaryText="Click me to see some hidden text" text="Some hidden text" %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Error message" summary="The error message component" %}
             {% gds_component "error-message" text="An error message" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Error summary" summary="The error summary component" %}
+            {% set error_summary_title_1 %}
+                Test
+            {% endset %}
+            {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
+                {% gds_error_summary_error_list_item href="/" text="Error item 1" %}
+                {% gds_error_summary_error_list_item href="/" %}
+                    Error 2
+                {% end_gds_error_summary_error_list_item %}
+            {% end_gds_error_summary %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Footer" summary="The Footer component" %}
+            {% gds_footer %}
+                {% gds_footer_nav title="Services and information" width="two-thirds" columns=2 %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 1" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 2" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 3" %}
+                {% end_gds_footer_nav %}
+
+                {% gds_footer_nav title="Departments and policy" width="one-third" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 4" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 5" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 6" %}
+                {% end_gds_footer_nav %}
+
+                {% gds_footer_meta %}
+                    {% gds_footer_meta_item href="/" text="Meta item 1" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 2" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 3" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 4" %}
+                {% end_gds_footer_meta %}
+
+                {% gds_footer_content_licence text="content licence text" %}
+                {% gds_footer_copyright text="copyright text" %}
+            {% end_gds_footer %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Header" summary="The header component" %}
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+                {% gds_header_nav_item href="/" %}
+                    Nav item 1
+                {% end_gds_header_nav_item %}
+                {% gds_header_nav_item href="/" text="Nav item 2" %}
+                {% gds_header_nav_item href="/components/" text="Components" %}
+            {% end_gds_header %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Hint" summary="The hint component" %}
             {% gds_component "hint" text="Some hint text" %}
@@ -61,8 +121,13 @@
         {% gds_accordion_item heading="Pagination" summary="The pagination component" %}
             {% gds_pagination page_obj %}
         {% end_gds_accordion_item %}
-        {% gds_accordion_item heading="Panel" summary="The banner component" %}
+        {% gds_accordion_item heading="Panel" summary="The panel component" %}
             {% gds_component "panel" titleText="Panel title" text="Panel content" %}
+        {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Phase banner" summary="The phase banner component" %}
+            {% gds_phase_banner text="Phase banner text" tag=phase_tag %}
+                {% gds_component "tag" text="Tag content" %}
+            {% end_gds_phase_banner %}
         {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
             <p class="govuk-body">The skip link is a hidden component</p>
@@ -91,16 +156,12 @@
 
 
     {% comment %} TO FIX: {% endcomment %}
-    {% comment %} {% gds_component "cookie-banner" %} {% endcomment %}
-    {% comment %} {% gds_component "error-summary" %} {% endcomment %}
-    {% comment %} {% gds_component "footer" %} {% endcomment %}
-    {% comment %} {% gds_component "header" %} {% endcomment %}
-    {% comment %} {% gds_component "phase-banner" %} {% endcomment %}
     {% comment %} {% gds_component "summary-list" %} {% endcomment %}
     {% comment %} {% gds_component "table" %} {% endcomment %}
 
     {% comment %} FIELDS: {% endcomment %}
     {% comment %} {% gds_component "character-count" %} {% endcomment %}
+    {% comment %} {% gds_component "checkboxes" %} {% endcomment %}
     {% comment %} {% gds_component "date-input" %} {% endcomment %}
     {% comment %} {% gds_component "fieldset" %} {% endcomment %}
     {% comment %} {% gds_component "file-upload" %} {% endcomment %}

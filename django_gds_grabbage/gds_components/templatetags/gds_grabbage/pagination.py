@@ -3,10 +3,11 @@ from typing import List, Optional
 from django import template
 from django.core.paginator import Page
 
-from django_gds_grabbage.gds_components.govuk_frontend.base import PaginationPrevNext
 from django_gds_grabbage.gds_components.govuk_frontend.pagination import (
     GovUKPagination,
     PaginationItems,
+    PaginationNext,
+    PaginationPrevious,
 )
 
 register = template.Library()
@@ -45,18 +46,18 @@ def gds_pagination(page_obj: Page):
         ```
     """
 
-    previous: Optional[PaginationPrevNext] = None
-    next: Optional[PaginationPrevNext] = None
+    previous: Optional[PaginationPrevious] = None
+    next: Optional[PaginationNext] = None
     pagination_items: List[PaginationItems] = []
 
     if page_obj.has_previous():
-        previous = PaginationPrevNext(
+        previous = PaginationPrevious(
             href=f"?page={page_obj.previous_page_number()}",
             labelText="Previous",
         )
 
     if page_obj.has_next():
-        next = PaginationPrevNext(
+        next = PaginationNext(
             href=f"?page={page_obj.next_page_number()}",
             labelText="Next",
         )

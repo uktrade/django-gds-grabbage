@@ -1,7 +1,7 @@
 import importlib
 import pathlib
 from dataclasses import dataclass
-from typing import Dict, Optional, Type
+from typing import Dict, List, Optional, Type, Union
 
 from django import template
 from django.forms import BoundField
@@ -20,26 +20,25 @@ register = template.Library()
 
 
 class GovUKComponentNode(Node):
+    dataclass_cls: Type[dataclass]
+
     def __init__(
         self,
         extra_context: Dict[str, FilterExpression],
-        component_name: Optional[str] = None,
         nodelist: Optional[NodeList] = None,
+        dataclass_cls: Type[dataclass] = None,
     ):
         self.nodelist = nodelist or NodeList()
-        self.component_name = component_name
-        if self.component_name:
-            self.component_class = self.get_component_class()
         self.extra_context = extra_context
+        if dataclass_cls:
+            self.dataclass_cls = dataclass_cls
         self.resolved_kwargs = {}
 
-    def get_component_class(self):
-        underscored_component_name = self.component_name.replace("-", "_")
-        module_name = f"django_gds_grabbage.gds_components.govuk_frontend.{underscored_component_name}"
-        module = importlib.import_module(module_name)
-        return getattr(module, "COMPONENT")
-
     def resolve(self, context):
+        # Add any SetNodes to the context
+        for node in self.nodelist.get_nodes_by_type(SetNode):
+            node.resolve(context)
+
         if not self.resolved_kwargs:
             self.resolved_kwargs = {
                 key: val.resolve(context) for key, val in self.extra_context.items()
@@ -49,19 +48,29 @@ class GovUKComponentNode(Node):
         self.resolve(context)
         return self.resolved_kwargs.copy()
 
+    def resolve_dataclass(self, context, as_dict=True) -> Union[GovUKComponent, Dict]:
+        resolved_dataclass = self.dataclass_cls(**self.build_component_kwargs(context))
+        if as_dict:
+            return resolved_dataclass.__dict__
+        return resolved_dataclass
+
     def render(self, context):
-        rendered_output = super().render(context)
-        if self.component_name:
-            return self.component_class(**self.build_component_kwargs(context)).render()
-        return rendered_output
+        super().render(context)
+        resolved_dataclass = self.resolve_dataclass(context, as_dict=False)
+        if hasattr(resolved_dataclass, "render"):
+            return resolved_dataclass.render()
+        return ""
 
-
-class DataclassNode(GovUKComponentNode):
-    dataclass_cls: Type[dataclass]
-
-    def resolve_dataclass(self, context) -> dataclass:
-        self.resolve(context)
-        return self.dataclass_cls(**self.build_component_kwargs(context))
+    def get_node_by_type_and_resolve(
+        self,
+        node_type: Type["GovUKComponentNode"],
+        context,
+        **kwargs,
+    ) -> Optional[GovUKComponent]:
+        for node in self.nodelist.get_nodes_by_type(node_type):
+            resolved_dataclass = node.resolve_dataclass(context, **kwargs)
+            return resolved_dataclass
+        return None
 
 
 FIELD_COMPONENTS = [
@@ -106,10 +115,16 @@ def gds_component(parser: Parser, token: Token):
     remaining_bits = bits[2:]
     extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
 
+    # Component dataclass
+    underscored_component_name = component_name.replace("-", "_")
+    module_name = f"django_gds_grabbage.gds_components.govuk_frontend.{underscored_component_name}"
+    module = importlib.import_module(module_name)
+    dataclass_cls = getattr(module, "COMPONENT")
+
     return GovUKComponentNode(
         nodelist=[],
-        component_name=component_name,
         extra_context=extra_context,
+        dataclass_cls=dataclass_cls,
     )
 
 
@@ -123,8 +138,11 @@ class SetNode(Node):
         self.nodelist = nodelist
         self.asvar = asvar
 
-    def render(self, context):
+    def resolve(self, context):
         context[self.asvar] = self.nodelist.render(context)
+
+    def render(self, context):
+        self.resolve(context)
         return ""
 
 
@@ -156,6 +174,39 @@ def gds_component_template(jinja2_template: str, macro_name: str, **kwargs):
     component._jinja2_template = jinja2_template
     component._macro_name = macro_name
     return component.render(component_data={**kwargs})
+
+
+def gds_register_tag(
+    library: template.Library,
+    name: str,
+    node_cls: GovUKComponentNode,
+    has_end_tag: bool = True,
+    end_if_not_contains: Optional[List[str]] = None,
+):
+    end_if_not_contains = end_if_not_contains or []
+
+    def template_tag(parser: Parser, token: Token):
+        bits = token.split_contents()
+        remaining_bits = bits[1:]
+        nodelist = template.NodeList()
+        extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+
+        if has_end_tag:
+            if not any(
+                [
+                    end_if_not_contain in extra_context
+                    for end_if_not_contain in end_if_not_contains
+                ]
+            ):
+                nodelist = parser.parse((f"end_{name}",))
+                parser.delete_first_token()
+
+        return node_cls(
+            extra_context=extra_context,
+            nodelist=nodelist,
+        )
+
+    library.tag(name=name, compile_function=template_tag)
 
 
 # Loop over python files in this directory and update the register object

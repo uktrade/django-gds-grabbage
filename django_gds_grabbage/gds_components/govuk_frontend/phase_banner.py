@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from django_gds_grabbage.gds_components.govuk_frontend import (
     base as govuk_frontend_base,
@@ -13,6 +13,10 @@ from django_gds_grabbage.gds_components.govuk_frontend import (
 from django_gds_grabbage.gds_components.govuk_frontend import (
     hint as govuk_frontend_hint,
 )
+from django_gds_grabbage.gds_components.govuk_frontend import (
+    label as govuk_frontend_label,
+)
+from django_gds_grabbage.gds_components.govuk_frontend import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
@@ -24,7 +28,7 @@ class GovUKPhaseBanner(govuk_frontend_base.GovUKComponent):
 
     text: Optional[str] = None
     html: Optional[str] = None
-    tag: Dict[str, Any]
+    tag: govuk_frontend_tag.GovUKTag
 
     _jinja2_template = "govuk_frontend_jinja/components/phase-banner/macro.html"
     _macro_name = "govukPhaseBanner"
