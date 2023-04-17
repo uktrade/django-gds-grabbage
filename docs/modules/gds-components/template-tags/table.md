@@ -1,21 +1,23 @@
-header = ["First name", "Last name", "Email"]
-results = [
-    {
-        "First name": "John",
-        "Last name": "Smith",
-        "Email": "",
-    }
-]
+# Tabs
 
-{% gds_table head=header rows=results %}
-OR
-{% gds_table %}
-    {% gds_table_head %}
-        {% gds_table_head_item text="Col 1" %}
-        {% gds_table_head_item text="Col 2" %}
-        {% gds_table_head_item text="Col 3" %}
-    {% end_gds_table_head %}
-    {% gds_table_rows %}
-        {% gds_table_row_item "Value 1" "Value 2" "Value 3" %}
-    {% end_gds_table_row %}
-{% end_gds_table %}
+See: [https://design-system.service.gov.uk/components/tabs/](https://design-system.service.gov.uk/components/tabs/)
+
+## Usage
+
+To use the tabs component, you need to load the `gds_grabbage` template tag library and then use the `gds_table` tag.
+This tag takes the following arguments:
+
+* `columns` - A list of tuples containing the column header, each tuple is made up of 2 parts:
+    * The machine name of the column
+    * The human readable name of the column
+* `rows` - You can pass either:
+    * A list of dictionaries containing the data for each row, each dictionary should be keyed by the machine name of the column
+    * A Django QuerySet
+
+### Example:
+
+```django
+{% load gds_grabbage %}
+...
+{% gds_table columns=table_columns rows=table_rows %}
+```

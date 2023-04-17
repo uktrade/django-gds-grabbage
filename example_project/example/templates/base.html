@@ -1,14 +1,20 @@
 {% extends "gds_grabbage/gds_components/base.html" %}
-{% load static %}
+{% load static gds_grabbage %}
 
-{% block title %}
-    {% if page_title %}{{ page_title }} -{% endif %}
-    {{ SERVICE_NAME }}
+{% block title %}GDS Grabbage example project{% endblock title %}
 
-    {% block head %}
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
-    {% endblock head %}
-{% endblock title %}
+{% block head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
+{% endblock head %}
+
+{% block header %}
+    {% url "components" as gds_components_url %}
+    {% url "active-search" as active_search_url %}
+    {% gds_header homepageUrl="/" serviceName="GDS Grabbage example project" serviceUrl="/" containerClasses="govuk-width-container" %}
+        {% gds_header_nav_item href=gds_components_url text="GDS components" %}
+        {% gds_header_nav_item href=active_search_url text="Active search" %}
+    {% end_gds_header %}
+{% endblock header %}
 
 {% block body_end %}
     <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>
