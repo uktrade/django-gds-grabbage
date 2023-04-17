@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict, List, TypedDict
+from typing import Any, Dict, List, Tuple, TypedDict
 
 import govuk_frontend_jinja
 import requests
@@ -11,7 +11,7 @@ jinja_path = govuk_frontend_jinja.__path__[0]
 govuk_frontend_path = govuk_frontend.__path__[0]
 # Code to generate GovUK Design System components
 
-new_component_python = """
+python_imports = """
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, List
 
@@ -65,40 +65,44 @@ NAME_TYPE_MAPPING = {
     "attributes": "govuk_frontend_base.Attributes",
     "label": "govuk_frontend_label.GovUKLabel",
 }
-DATACLASS_TYPE_MAPPING = {
+
+DATACLASS_TYPE_MAPPING: Dict[str, Dict[str, Tuple[str, bool]]] = {
     "Fieldset": {
-        "legend": "govuk_frontend_base.FieldsetLegend",
+        "legend": ("govuk_frontend_base.FieldsetLegend", False),
     },
     "Accordion": {
-        "items": "List[govuk_frontend_base.AccordionItem]",
+        "items": ("List[govuk_frontend_base.AccordionItem]", False),
     },
     "SummaryList": {
-        "rows": "govuk_frontend_base.SummaryListRows",
+        "rows": ("govuk_frontend_base.SummaryListRows", False),
     },
     "Checkboxes": {
-        "values": "List[str]",
+        "values": ("List[str]", False),
     },
     "CheckboxesItems": {
-        "conditional": "govuk_frontend_base.CheckboxesConditional",
-        "conditional.html": IGNORE,
+        "conditional": ("govuk_frontend_base.CheckboxesConditional", False),
+        "conditional.html": (IGNORE,),
     },
     "Details": {
-        "summaryText": "Optional[str] = None",
-        "summaryHtml": "Optional[str] = None",
+        "summaryText": ("Optional[str] = None", False),
+        "summaryHtml": ("Optional[str] = None", False),
     },
     "ErrorSummary": {
-        "titleText": "Optional[str] = None",
-        "titleHtml": "Optional[str] = None",
+        "titleText": ("Optional[str] = None", False),
+        "titleHtml": ("Optional[str] = None", False),
     },
     "Panel": {
-        "titleText": "Optional[str] = None",
-        "titleHtml": "Optional[str] = None",
+        "titleText": ("Optional[str] = None", False),
+        "titleHtml": ("Optional[str] = None", False),
+    },
+    "Table": {
+        "rows": ("arrayofarrays", True),
     },
     "TabsItems": {
-        "panel": "govuk_frontend_base.TextAndHtml",
+        "panel": ("govuk_frontend_base.TextAndHtml", False),
     },
     "PhaseBanner": {
-        "tag": "govuk_frontend_tag.GovUKTag",
+        "tag": ("govuk_frontend_tag.GovUKTag", False),
     },
 }
 
@@ -188,18 +192,24 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
                 HAS_BEEN_MAPPED = True
                 mapped_type = name_type_mapping
 
+            # Up to this point, if the type has been mapped, we don't need to
+            # generate it's sub dataclass.
+            GENERATE_SUB_DATACLASS = not HAS_BEEN_MAPPED
+
             # Override types with the defined dataclass mappings.
             dataclass_type_mapping = DATACLASS_TYPE_MAPPING.get(dataclass_name)
             if dataclass_type_mapping:
                 if component_param["name"] in dataclass_type_mapping:
-                    HAS_BEEN_MAPPED = True
-                    mapped_type = dataclass_type_mapping[component_param["name"]]
+                    GENERATE_SUB_DATACLASS = dataclass_type_mapping[
+                        component_param["name"]
+                    ][1]
+                    mapped_type = dataclass_type_mapping[component_param["name"]][0]
 
             if mapped_type == IGNORE:
                 continue
 
             sub_params = component_param["YAML"].get("params", [])
-            if sub_params and not HAS_BEEN_MAPPED:
+            if sub_params and GENERATE_SUB_DATACLASS:
                 sub_dataclass_name = (
                     dataclass_name + component_param["name"].capitalize()
                 )
@@ -211,7 +221,9 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
                         dataclass_name=sub_dataclass_name,
                         component_params=subcomponent_params,
                     )
-                    if component_param["type"] == "array":
+                    if mapped_type == "arrayofarrays":
+                        dataclass_type += f"List[List[{sub_dataclass_name}]]"
+                    elif component_param["type"] == "array":
                         dataclass_type += f"List[{sub_dataclass_name}]"
                     else:
                         dataclass_type += sub_dataclass_name
@@ -270,12 +282,10 @@ def build_component(component_hyphenated: str):
 
     gds_url = f"https://design-system.service.gov.uk/components/{component_hyphenated}/"
 
-    imports = ["base"]
-
     dataclasses = build_dataclasses_from_component_yaml(component_hyphenated)
 
     with open(filename, "w") as f:
-        f.write(new_component_python.format(imports=", ".join(set(imports))))
+        f.write(python_imports)
 
         # Reverse the order of dataclasses to fix typing order
         dataclasses_reversed = reversed(list(dataclasses.items()))

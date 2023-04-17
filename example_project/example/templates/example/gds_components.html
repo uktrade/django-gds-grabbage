@@ -219,6 +219,10 @@
                 {% end_gds_tabs_tab %}
             {% end_gds_tabs %}
         {% end_gds_accordion_item %}
+        {% gds_accordion_item heading="Table" summary="The table component" %}
+            {% gds_table columns=table_columns rows=table_rows %}
+            {% gds_table columns=model_table_columns rows=model_table_rows %}
+        {% end_gds_accordion_item %}
         {% gds_accordion_item heading="Tag" summary="The tag component" %}
             {% gds_component "tag" text="Tag content" %}
         {% end_gds_accordion_item %}

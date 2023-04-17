@@ -68,6 +68,34 @@ def gds_components_view(request):
                 href="#",
             ),
         ],
+        table_columns=[
+            ("column_1", "Column 1"),
+            ("column_2", "Column 2"),
+            ("column_3", "Column 3"),
+        ],
+        table_rows=[
+            {
+                "column_1": "Row 1 Column 1",
+                "column_2": "Row 1 Column 2",
+                "column_3": "Row 1 Column 3",
+            },
+            {
+                "column_1": "Row 2 Column 1",
+                "column_2": "Row 2 Column 2",
+                "column_3": "Row 2 Column 3",
+            },
+            {
+                "column_1": "Row 3 Column 1",
+                "column_2": "Row 3 Column 2",
+                "column_3": "Row 3 Column 3",
+            },
+        ],
+        model_table_columns=[
+            ("first_name", "First Name"),
+            ("last_name", "Last Name"),
+            ("email", "Email"),
+        ],
+        model_table_rows=User.objects.all(),
     )
 
     return render(request, "example/gds_components.html", context)

@@ -48,7 +48,7 @@ class GovUKTable(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/table/
     """
 
-    rows: List[TableRows]
+    rows: List[List[TableRows]]
     head: Optional[List[TableHead]] = None
     caption: Optional[str] = None
     captionClasses: Optional[str] = None
