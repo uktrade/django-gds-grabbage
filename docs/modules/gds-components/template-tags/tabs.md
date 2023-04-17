@@ -6,8 +6,6 @@ See: [https://design-system.service.gov.uk/components/tabs/](https://design-syst
 
 To use the tabs component, you need to load the `gds_grabbage` template tag library and then use the `gds_tabs` and `gds_tabs_tab` tags.
 
-Similar to Django's `{% block %}` and `{% endblock %}` tags, the `gds_tabs` and `gds_tabs_tab` tags will have to be closed off with their respective `end_gds_tabs` and `end_gds_tabs_tab` tags.
-
 ### Example:
 
 ```django

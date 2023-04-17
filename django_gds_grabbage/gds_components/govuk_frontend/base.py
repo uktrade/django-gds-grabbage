@@ -113,16 +113,6 @@ Summary List
 
 
 @dataclass(kw_only=True)
-class SummaryListRowsActionsItem:
-    href: str
-    text: Optional[str]
-    html: Optional[str]
-    visuallyHiddenText: Optional[str] = None
-    classes: Optional[str] = None
-    attributes: Optional[Attributes] = None
-
-
-@dataclass(kw_only=True)
 class SummaryListRowsKey(TextAndHtml):
     classes: Optional[str] = None
 
@@ -130,6 +120,16 @@ class SummaryListRowsKey(TextAndHtml):
 @dataclass(kw_only=True)
 class SummaryListRowsValue(TextAndHtml):
     classes: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class SummaryListRowsActionsItem:
+    href: str
+    text: Optional[str] = None
+    html: Optional[str] = None
+    visuallyHiddenText: Optional[str] = None
+    classes: Optional[str] = None
+    attributes: Optional[Attributes] = None
 
 
 @dataclass(kw_only=True)
@@ -141,7 +141,7 @@ class SummaryListRowsActions:
 @dataclass(kw_only=True)
 class SummaryListRow:
     classes: Optional[str] = None
-    key: Optional[SummaryListRowsActions] = None
+    key: Optional[SummaryListRowsKey] = None
     value: Optional[SummaryListRowsValue] = None
     actions: Optional[SummaryListRowsActions] = None
 

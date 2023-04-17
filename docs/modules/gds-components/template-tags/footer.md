@@ -6,7 +6,6 @@ See: [https://design-system.service.gov.uk/components/footer/](https://design-sy
 
 To use the footer component, you need to load the `gds_grabbage` template tag library and then use the `gds_footer` and `gds_footer_nav_item` tags.
 
-Similar to Django's `{% block %}` and `{% endblock %}` tags, the `gds_footer` and `gds_footer_nav_item` tags will have to be closed off with their respective `end_gds_footer` and `footer_item` tags.
 
 ### Example:
 
