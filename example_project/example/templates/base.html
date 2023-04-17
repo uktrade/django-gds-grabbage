@@ -10,9 +10,11 @@
 {% block header %}
     {% url "components" as gds_components_url %}
     {% url "active-search" as active_search_url %}
+    {% url "user-listing" as users_url %}
     {% gds_header homepageUrl="/" serviceName="GDS Grabbage example project" serviceUrl="/" containerClasses="govuk-width-container" %}
         {% gds_header_nav_item href=gds_components_url text="GDS components" %}
         {% gds_header_nav_item href=active_search_url text="Active search" %}
+        {% gds_header_nav_item href=users_url text="User list" %}
     {% end_gds_header %}
 {% endblock header %}
 

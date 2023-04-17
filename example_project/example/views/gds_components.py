@@ -1,5 +1,6 @@
 import os
 import pathlib
+from typing import Any, Dict
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -34,6 +35,16 @@ class UserListingView(ListView):
     template_name = "example/user_listing.html"
     model = User
     paginate_by = 1
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update(
+            user_columns=[
+                ("first_name", "First name"),
+                ("last_name", "Last name"),
+            ]
+        )
+        return context
 
 
 class CustomForm(forms.Form):

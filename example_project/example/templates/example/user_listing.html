@@ -1,27 +1,7 @@
 {% extends "base.html" %}
+
 {% load gds_grabbage %}
 {% block content %}
-    <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Users</caption>
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">First name</th>
-                <th scope="col" class="govuk-table__header">Last name</th>
-            </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-            {% for user in object_list %}
-                <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">{{ user.first_name }}</th>
-                    <td class="govuk-table__cell">{{ user.last_name }}</td>
-                </tr>
-            {% empty %}
-                <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">No users yet.</th>
-                    <td class="govuk-table__cell"></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% gds_table columns=user_columns rows=object_list firstCellIsHeader=True %}
     {% gds_pagination page_obj %}
 {% endblock content %}
