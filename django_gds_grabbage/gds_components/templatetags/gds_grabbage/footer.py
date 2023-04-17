@@ -31,9 +31,11 @@ class FooterNode(GovUKComponentNode):
 
         component_kwargs["navigation"] = navigations
 
-        component_kwargs["meta"] = self.get_node_by_type_and_resolve(
-            FooterMetaNode, context
-        )
+        meta = self.get_node_by_type_and_resolve(FooterMetaNode, context)
+        if not meta:
+            meta = FooterMeta(items=[]).__dict__
+        component_kwargs["meta"] = meta
+
         component_kwargs["contentLicence"] = self.get_node_by_type_and_resolve(
             FooterContentlicenceNode, context
         )

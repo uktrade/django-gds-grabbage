@@ -1,56 +1,23 @@
-{% load static gds_grabbage %}
-<!DOCTYPE html>
-<html lang="en" class="govuk-template app-html-class">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if page_title %}{{ page_title }} -{% endif %}
-                {{ SERVICE_NAME }}
-            {% endblock title %}
-        </title>
-        <link rel="mask-icon"
-              href='{% static "govuk-frontend/govuk/assets/images/govuk-mask-icon.svg" %}'
-              color="blue"/>
-        <link rel="apple-touch-icon"
-              sizes="180x180"
-              href='{% static "govuk-frontend/govuk/images/govuk-apple-touch-icon-180x180.png" %}'/>
-        <link rel="apple-touch-icon"
-              sizes="167x167"
-              href='{% static "govuk-frontend/govuk/images/govuk-apple-touch-icon-167x167.png" %}'/>
-        <link rel="apple-touch-icon"
-              sizes="152x152"
-              href='{% static "govuk-frontend/govuk/images/govuk-apple-touch-icon-152x152.png" %}'/>
-        <link rel="apple-touch-icon"
-              href='{% static "govuk-frontend/govuk/images/govuk-apple-touch-icon.png" %}'/>
+{% extends "gds_grabbage/gds_components/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if page_title %}{{ page_title }} -{% endif %}
+    {{ SERVICE_NAME }}
+
+    {% block head %}
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
-        <!--[if lt IE 9]>
-        <script src="/html5-shiv/html5shiv.js"></script>
-<![endif]-->
-        <meta property="og:image"
-              content="govuk-frontend/govuk/assets/images/govuk-opengraph-image.png"/>
-    </head>
-    <body class="govuk-template__body app-body-class">
-        <script>
-            document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-        </script>
-        {% gds_component "skip-link" text="Skip to main content" href="#main-content" %}
-        <div class="{% block container_class_names %}govuk-width-container{% endblock container_class_names %}">
-            <main class="{% block main_class_names %}govuk-main-wrapper{% endblock main_class_names %}" id="main-content"role="main">
-                {% block content %}{% endblock content %}
-            </main>
-        </div>
-        <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>
-        <script>
-            const CSRF_TOKEN = "{{ csrf_token }}";
+    {% endblock head %}
+{% endblock title %}
 
-            document.body.addEventListener('htmx:configRequest', function(event) {
-                event.detail.headers['X-CSRFToken'] = CSRF_TOKEN;
-            });
+{% block body_end %}
+    <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>
+    <script>window.GOVUKFrontend.initAll()</script>
+    <script>
+        const CSRF_TOKEN = "{{ csrf_token }}";
 
-            window.GOVUKFrontend.initAll()
-          </script>
-        {% block scripts %}
-        {% endblock scripts %}
-    </body>
-</html>
+        document.body.addEventListener('htmx:configRequest', function(event) {
+            event.detail.headers['X-CSRFToken'] = CSRF_TOKEN;
+        });
+    </script>
+{% endblock body_end %}

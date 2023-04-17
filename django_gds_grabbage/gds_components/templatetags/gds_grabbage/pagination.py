@@ -54,13 +54,13 @@ def gds_pagination(page_obj: Page):
         previous = PaginationPrevious(
             href=f"?page={page_obj.previous_page_number()}",
             labelText="Previous",
-        )
+        ).__dict__
 
     if page_obj.has_next():
         next = PaginationNext(
             href=f"?page={page_obj.next_page_number()}",
             labelText="Next",
-        )
+        ).__dict__
 
     for page_number in page_obj.paginator.get_elided_page_range(
         page_obj.number, on_each_side=2, on_ends=1

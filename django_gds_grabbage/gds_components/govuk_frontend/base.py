@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, Union
 
 from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
@@ -56,9 +56,25 @@ class GovUKComponent(RenderableMixin):
         )
         template = env.from_string(self.build_jinja_template())
 
-        data = self.__dict__
+        data = self.__dict__.copy()
         if component_data:
             data.update(component_data)
+
+        def clean_data(data_to_clean: Union[Dict, List]):
+            # Clean data
+            # Iterate through the multi-level dict and remove any keys with a value of None
+            if isinstance(data_to_clean, list):
+                for item in data_to_clean:
+                    clean_data(item)
+
+            elif isinstance(data_to_clean, dict):
+                for key, value in list(data_to_clean.items()):
+                    if value is None:
+                        del data_to_clean[key]
+                    elif isinstance(value, dict) or isinstance(value, list):
+                        clean_data(value)
+
+        clean_data(data)
 
         return mark_safe(template.render(data=data))
 

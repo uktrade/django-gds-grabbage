@@ -59,7 +59,7 @@ class CheckboxesNode(FieldNode):
                 )
                 if item.value in self.checkbox_conditional_items:
                     item.conditional = self.checkbox_conditional_items[item.value]
-                component_kwargs["items"].append(item)
+                component_kwargs["items"].append(item.__dict__)
 
         return component_kwargs
 
