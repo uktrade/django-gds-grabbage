@@ -1,6 +1,6 @@
-# Tabs
+# Table
 
-See: [https://design-system.service.gov.uk/components/tabs/](https://design-system.service.gov.uk/components/tabs/)
+See: [https://design-system.service.gov.uk/components/table/](https://design-system.service.gov.uk/components/table/)
 
 ## Usage
 

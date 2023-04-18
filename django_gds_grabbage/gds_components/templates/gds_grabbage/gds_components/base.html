@@ -48,7 +48,7 @@
         {% endblock footer %}
 
         {% block body_end %}
-            <script src="/govuk-frontend/all.js"></script>
+            <script src='{% static "govuk-frontend/all.js" %}''></script>
             <script>window.GOVUKFrontend.initAll()</script>
         {% endblock body_end %}
     </body>
