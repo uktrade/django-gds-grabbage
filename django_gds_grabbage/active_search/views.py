@@ -26,6 +26,7 @@ class ActiveSearchView(ContextMixin, View):
         return self.render_response(
             "gds_grabbage/active_search/search_results.html",
             context={
+                "search_query": query,
                 "search_results": search_results,
             },
             trigger="active-search:search",

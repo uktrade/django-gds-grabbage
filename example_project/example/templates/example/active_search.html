@@ -4,25 +4,33 @@
 {% block content %}
 <script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
-<style>
-    form {
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-<form id="form">
-    <link rel="stylesheet" href="{% static 'gds_grabbage/active_search/active_search.css' %}">
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <ul>
+            {% if messages %}
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+        <form id="form" method="post">
+            {{ form.media }}
+            {% csrf_token %}
 
-    <!-- Using the templatetag directly with data -->
-    {% active_search hx_id="users" hx_name="users" view_name="search-users" selected_objects=users %}
-    <pre id="users-output"></pre>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    Which users are you going to select?
+                </legend>
+                {{ form.users }}
+            </fieldset>
 
-    <hr>
+            <div>
+                <button class="govuk-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <!-- Using it through a form field -->
-    {{ example_form.users }}
-</form>
 <script>
 const form = document.querySelector("#form");
 const usersOutput = document.querySelector("#users-output");
