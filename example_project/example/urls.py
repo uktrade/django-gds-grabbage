@@ -18,7 +18,7 @@ from django.urls import path
 
 from example_project.example.views.active_search import (
     UserActiveSearchView,
-    active_search_view,
+    ExampleFormView,
 )
 from example_project.example.views.gds_components import (
     UserListingView,
@@ -29,6 +29,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", UserListingView.as_view(), name="user-listing"),
     path("components/", gds_components_view, name="components"),
-    path("active-search/", active_search_view, name="active-search"),
+    path("active-search/", ExampleFormView.as_view(), name="active-search"),
     path("search-users/", UserActiveSearchView.as_view(), name="search-users"),
 ]

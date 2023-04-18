@@ -1,8 +1,11 @@
-from django.shortcuts import render
-from django.contrib.auth import get_user_model
-from django.db.models import Q
 from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import FormView
 
+from django_gds_grabbage.active_search.forms import active_search_field
 from django_gds_grabbage.active_search.views import ActiveSearchView
 
 
@@ -23,18 +26,30 @@ class UserActiveSearchView(ActiveSearchView):
 
 
 class ExampleForm(forms.Form):
-    users = forms.ModelMultipleChoiceField(queryset=User.objects.all())
-
-
-def active_search_view(request):
-    users = User.objects.all()[:1]
-    example_form = ExampleForm(data={"users": users})
-
-    return render(
-        request,
-        "example/active_search.html",
-        {
-            "users": users,
-            "example_form": example_form,
-        },
+    users = active_search_field(
+        forms.ModelMultipleChoiceField,
+        view_name="search-users",
+    )(
+        queryset=User.objects.all(),
+        required=False,
     )
+
+
+class ExampleFormView(SuccessMessageMixin, FormView):
+    template_name = "example/active_search.html"
+    form_class = ExampleForm
+    success_url = reverse_lazy("active-search")
+
+    def get_initial(self):
+        users = self.request.session.get("active-search-example:users", [])
+        return {"users": users}
+
+    def form_valid(self, form):
+        self.request.session["active-search-example:users"] = [
+            user.pk for user in form.cleaned_data["users"]
+        ]
+        return super().form_valid(form)
+
+    def get_success_message(self, cleaned_data) -> str:
+        users = ", ".join([str(user) for user in cleaned_data.get("users", [])])
+        return f"Successfully submitted users {users}"

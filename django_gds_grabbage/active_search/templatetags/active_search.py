@@ -1,8 +1,8 @@
 from typing import Any
+
 from django import template
 
 from django_gds_grabbage.active_search.types import SelectableObject
-
 
 register = template.Library()
 

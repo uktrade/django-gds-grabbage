@@ -2,4 +2,10 @@
     {% for object in search_results %}
         {% include './search_result.html' %}
     {% endfor %}
+
+    {% if search_query and not search_results %}
+        <div class="govuk-body">
+            No search results for query '{{ search_query }}'
+        </div>
+    {% endif %}
 </div>
