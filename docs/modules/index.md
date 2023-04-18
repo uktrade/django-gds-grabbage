@@ -14,4 +14,3 @@ poetry add django-gds-grabbage
 The Django GDS Grabbage package is split into separate apps which you can install as needed. To find out more about the apps, see their specific documentation.
 
 - [Active Search](./active-search/index.md)
-- [GDS Components](./gds-components/index.md)
