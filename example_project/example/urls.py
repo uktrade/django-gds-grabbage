@@ -24,6 +24,6 @@ from example_project.example.views.active_search import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("active-search/", ExampleFormView.as_view(), name="active-search"),
+    path("", ExampleFormView.as_view(), name="active-search"),
     path("search-users/", UserActiveSearchView.as_view(), name="search-users"),
 ]
