@@ -11,11 +11,11 @@ To use the accordion, you need to load the `gds_grabbage` template tag library a
 ```django
 {% load gds_grabbage %}
 ...
-{% gds_accordion "accordion-1" %}
-    {% gds_accordion_item "Heading 1" "Summary 1" %}
+{% gds_accordion id="accordion-1" %}
+    {% gds_accordion_item heading="Heading 1" summary="Summary 1" %}
         Some <strong>HTML</strong> content
     {% end_gds_accordion_item %}
-    {% gds_accordion_item "Heading 2" "Summary 2" %}
+    {% gds_accordion_item heading="Heading 2" summary="Summary 2" %}
         Some more <strong>HTML</strong> content
     {% end_gds_accordion_item %}
 {% end_gds_accordion %}
