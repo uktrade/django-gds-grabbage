@@ -28,6 +28,7 @@ class ExampleForm(forms.Form):
     users = active_search_field(
         forms.ModelMultipleChoiceField,
         view_name="search-users",
+        placeholder="Start typing to search users",
     )(
         queryset=User.objects.all(),
         required=False,
@@ -50,5 +51,4 @@ class ExampleFormView(SuccessMessageMixin, FormView):
         return super().form_valid(form)
 
     def get_success_message(self, cleaned_data) -> str:
-        users = ", ".join([str(user) for user in cleaned_data.get("users", [])])
-        return f"Successfully submitted users {users}"
+        return f"Successfully saved {len(cleaned_data['users'])} users"

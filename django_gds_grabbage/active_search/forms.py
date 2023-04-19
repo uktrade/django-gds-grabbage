@@ -1,13 +1,13 @@
 from django import forms
 
 
-def active_search_field(field_cls, view_name: str):
+def active_search_field(field_cls, view_name: str, **kwargs):
     class ActiveSearchBoundField(forms.BoundField):
         def value(self):
             value = super().value()
             return self.field.to_python(value)
 
-    class ActiveSearchWidget(field_cls.widget):
+    class ActiveSearchWidget(forms.MultipleHiddenInput):
         template_name = "gds_grabbage/active_search/active_search.html"
 
         class Media:
@@ -16,11 +16,13 @@ def active_search_field(field_cls, view_name: str):
             }
 
         def get_context(self, name, value, attrs):
-            return {
+            context = super().get_context(name, value, attrs)
+            return context | {
                 "hx_id": attrs.get("id"),
                 "hx_name": name,
                 "view_name": view_name,
                 "selected_objects": value,
+                **kwargs,
             }
 
     class ActiveSearchField(field_cls):

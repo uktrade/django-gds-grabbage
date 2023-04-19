@@ -8,7 +8,13 @@
 
 .active-search__selected-object, .active-search__search-result {
     display: flex;
+    padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.active-search__selected-object:not(:last-child), .active-search__search-result:not(:last-child) {
+    border-bottom: 2px solid #b1b4b6;
 }
 
 .active-search__object {

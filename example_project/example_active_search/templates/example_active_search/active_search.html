@@ -6,10 +6,10 @@
 <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <ul>
+        <ul class="govuk-list">
             {% if messages %}
                 {% for message in messages %}
-                    <li>{{ message }}</li>
+                    <li style="color: #00703c;">{{ message }}</li>
                 {% endfor %}
             {% endif %}
         </ul>
