@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "govuk_gds_grabbage"
+name = "django_gds_grabbage"
 version = "0.1.0"
 description = ""
 authors = [

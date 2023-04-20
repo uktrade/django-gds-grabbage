@@ -32,28 +32,6 @@ Django = ">=2.2"
 django-crispy-forms = ">=1.9.0"
 
 [[package]]
-name = "django-gds-grabbage"
-version = "0.1.0"
-description = ""
-category = "main"
-optional = false
-python-versions = "^3.8"
-files = []
-develop = true
-
-[package.dependencies]
-crispy-forms-gds = {version = "^0.2.4", optional = true}
-Django = "^4.1.7"
-jinja2 = "^3.1.2"
-
-[package.extras]
-crispy = ["crispy-forms-gds (>=0.2.4,<0.3.0)"]
-
-[package.source]
-type = "directory"
-url = ".."
-
-[[package]]
 name = "django"
 version = "4.1.7"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -88,6 +66,45 @@ files = [
 
 [package.dependencies]
 django = ">=3.2"
+
+[[package]]
+name = "django-gds-grabbage"
+version = "0.1.0"
+description = ""
+category = "main"
+optional = false
+python-versions = "^3.8"
+files = []
+develop = true
+
+[package.dependencies]
+crispy-forms-gds = {version = "^0.2.4", optional = true}
+Django = "^4.1.7"
+jinja2 = "^3.1.2"
+
+[package.extras]
+crispy = ["crispy-forms-gds (>=0.2.4,<0.3.0)"]
+
+[package.source]
+type = "directory"
+url = ".."
+
+[[package]]
+name = "govuk-frontend-django"
+version = "0.1.0"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "govuk_frontend_django-0.1.0-py3-none-any.whl", hash = "sha256:2a490f1fe14d179d5868eef1a92f09304d1c8976c357bcdb10ec2ce40128fa31"},
+    {file = "govuk_frontend_django-0.1.0.tar.gz", hash = "sha256:5d20d700de77a02c0d4f01928e838c66d452512e05d20487b391d2bcee9a9c2a"},
+]
+
+[package.dependencies]
+Django = ">=4.1.7,<5.0.0"
+govuk-frontend-jinja = ">=2.5.0,<3.0.0"
+jinja2 = ">=3.1.2,<4.0.0"
 
 [[package]]
 name = "govuk-frontend-jinja"
@@ -206,22 +223,7 @@ files = [
     {file = "tzdata-2023.3.tar.gz", hash = "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a"},
 ]
 
-[[package]]
-name = "whitenoise"
-version = "6.4.0"
-description = "Radically simplified static file serving for WSGI applications"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "whitenoise-6.4.0-py3-none-any.whl", hash = "sha256:599dc6ca57e48929dfeffb2e8e187879bfe2aed0d49ca419577005b7f2cc930b"},
-    {file = "whitenoise-6.4.0.tar.gz", hash = "sha256:a02d6660ad161ff17e3042653c8e3f5ecbb2a2481a006bde125b9efb9a30113a"},
-]
-
-[package.extras]
-brotli = ["Brotli"]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "559f40b786eafa9d09a74d9c3640d2e5ceba388d00f4e2f50b9a4cf9d720c2dc"
+content-hash = "56d90060e5de04331d622df6229e69eca08d61a7c8dc5d60e5a1cc2550636d39"

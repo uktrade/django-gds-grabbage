@@ -8,7 +8,6 @@ from django.views.generic import FormView
 from django_gds_grabbage.active_search.forms import active_search_field
 from django_gds_grabbage.active_search.views import ActiveSearchView
 
-
 User = get_user_model()
 
 
@@ -36,7 +35,7 @@ class ExampleForm(forms.Form):
 
 
 class ExampleFormView(SuccessMessageMixin, FormView):
-    template_name = "example/active_search.html"
+    template_name = "example_active_search/active_search.html"
     form_class = ExampleForm
     success_url = reverse_lazy("active-search")
 

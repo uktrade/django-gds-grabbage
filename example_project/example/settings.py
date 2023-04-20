@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "govuk_frontend_django",
     "django_gds_grabbage",
     "django_gds_grabbage.active_search",
     "example",
+    "example_active_search",
 ]
 
 MIDDLEWARE = [
