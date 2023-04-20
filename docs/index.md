@@ -13,9 +13,9 @@ A collection of things ready to be grabbed.
 
 ## What is this package?
 
-This package is a collection of Django components that are ready to be grabbed and used in your project. It includes things like:
+TODO: Write a project description
 
-- GDS components
-  - Template renderable python objects
-  - Template tags
-- etc.
+## Where did the GOV.UK components go?
+
+We have moved the GOV.UK components to a separate repository. You can find them here:
+https://github.com/uktrade/govuk-frontend-django/

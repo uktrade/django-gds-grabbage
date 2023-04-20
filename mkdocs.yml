@@ -1,7 +1,16 @@
+# Project specific config:
 site_name: Django GDS Grabbage
 site_url: https://uktrade.github.io/django-gds-grabbage/
+repo_name: uktrade/django-gds-grabbage
 repo_url: https://github.com/uktrade/django-gds-grabbage/
 site_description: Documentation for the Django GDS Grabbage package
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/uktrade/django-gds-grabbage
+
+# Standard config:
 plugins:
   - awesome-pages
   - material/social:
@@ -21,22 +30,19 @@ theme:
   name: tech_docs_template
   language: en
   features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.indexes
-    - navigation.top
+    - content.code.copy
     - header.autohide
-    - search.suggest
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
     - search.highlight
     - search.share
-  logo: logos/moj.png
-  favicon: favicons/moj.ico
-
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/uktrade/django-gds-grabbage
+    - search.suggest
+  logo: assets/dit-logo.png
+  favicon: assets/dit-favicon.png
 
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js # /PS-IGNORE

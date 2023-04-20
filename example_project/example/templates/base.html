@@ -1,5 +1,6 @@
-{% extends "gds_grabbage/gds_components/base.html" %}
-{% load static gds_grabbage %}
+{% comment %} {% extends "govuk_frontend_django/base.html" %} {% endcomment %}
+{% load static %}
+{% comment %} {% load static gds_grabbage %} {% endcomment %}
 
 {% block title %}GDS Grabbage example project{% endblock title %}
 
@@ -8,15 +9,17 @@
 {% endblock head %}
 
 {% block header %}
-    {% url "components" as gds_components_url %}
     {% url "active-search" as active_search_url %}
+    <a href="{{ active_search_url }}">{{ active_search_url }}</a>
     {% url "user-listing" as users_url %}
-    {% gds_header homepageUrl="/" serviceName="GDS Grabbage example project" serviceUrl="/" containerClasses="govuk-width-container" %}
-        {% gds_header_nav_item href=gds_components_url text="GDS components" %}
+    <a href="{{ users_url }}">{{ users_url }}</a>
+    {% comment %} {% gds_header homepageUrl="/" serviceName="GDS Grabbage example project" serviceUrl="/" containerClasses="govuk-width-container" %}
         {% gds_header_nav_item href=active_search_url text="Active search" %}
         {% gds_header_nav_item href=users_url text="User list" %}
-    {% end_gds_header %}
+    {% end_gds_header %} {% endcomment %}
 {% endblock header %}
+
+{% block content %}{% endblock content %}
 
 {% block body_end %}
     <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>

@@ -1,1 +1,1 @@
-# Django GDS Grabbage
+./docs/index.md
