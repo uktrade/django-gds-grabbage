@@ -1,6 +1,7 @@
 # Project specific config:
 site_name: Django GDS Grabbage
 site_url: https://uktrade.github.io/django-gds-grabbage/
+repo_name: uktrade/django-gds-grabbage
 repo_url: https://github.com/uktrade/django-gds-grabbage/
 site_description: Documentation for the Django GDS Grabbage package
 
