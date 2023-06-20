@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "^4.1.7"
+Django = "^4.1.9"
 govuk-frontend-jinja = "^2.5.0"
 django-gds-grabbage = { path = "../", develop = true, extras = ["crispy"] }
 govuk-frontend-django = "^0.1.0"
